@@ -1,0 +1,51 @@
+{
+    "manifest_version": 3,
+    "name": "骚神库DP助手",
+    "version": "7.6.2",
+    "permissions":
+	[
+		"contextMenus", 
+		"tabs", 
+		"notifications", 
+		"webRequest", 
+		 
+		"storage",
+        "activeTab",
+        "scripting"
+         
+		 
+	],
+    "icons": {
+		"128": "img/saoshen2.png",
+		"48": "img/saoshen2.png",
+		"19": "img/saoshen2.png"
+	},
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["js/jquery-3.7.1.min.js","js/jquery-ui.js","content.js","tool.js"],
+            "css": ["content.css","css/jquery-ui.css"],
+            "run_at": "document_end"
+        }
+    ],
+    "host_permissions": [
+        "<all_urls>"
+      ],
+      "web_accessible_resources": [
+        {
+            "resources": ["js/inject.js", "*"],
+            "matches": ["<all_urls>"]
+        }
+    ],
+      "homepage_url": "https://gitee.com/Saossion/SaossionPage",
+
+      "action": {
+        "default_popup": "popup.html"
+  
+    },
+    "background": {
+        "service_worker": "background.js"
+      }
+
+
+}
