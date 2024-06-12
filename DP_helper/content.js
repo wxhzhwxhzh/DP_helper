@@ -4,48 +4,42 @@
 //----------封装主函数
 class MainApp{
     constructor() {
-        this.init();
+        var self=this;
+
+        this.createNavbar();//调用函数创建导航栏  默认隐藏
+        this.toggleDiv();
+        
+        
+        // ----------------监听导航栏 进行位置变换
+        $('#daohanglan').on('click', function() {
+            togglePosition();
+        });
+        
+   
+        this.listen_mousemove_to_update_div(); //监听鼠标移动
+   
+   
+        // 监听按键   F2 F8  F9  alt+1
+        $(document).keydown(function(event) {
+            switch (event.keyCode) {
+                case 119: // F8键
+                    self.extractInfoAndAlert();
+                    break;
+                case 113: // F2键
+                    self.extractInfoAndAlert_simple();
+                    break;
+                case 120: // F9键
+                    alert('-✔️骚神库元素定位插件- \n 网页已经刷新定位\n 插件已经深度解析，重新定位动态元素!!');
+                    break;
+                case 49: // 数字键1
+                    if (event.altKey) {
+                        self.copyElementXPath();
+                    }
+                    break;
+            }
+        });
 
     }
-
-    async init(){     
-
-     var self=this;
-
-     this.createNavbar();//调用函数创建导航栏  默认隐藏
-     this.toggleDiv();
-     
-     
-     // ----------------监听导航栏 进行位置变换
-     $('#daohanglan').on('click', function() {
-         togglePosition();
-     });
-     
-
-     this.listen_mousemove_to_update_div(); //监听鼠标移动
-
-
-     // 监听按键   F2 F8  F9  alt+1
-     $(document).keydown(function(event) {
-         switch (event.keyCode) {
-             case 119: // F8键
-                 self.extractInfoAndAlert();
-                 break;
-             case 113: // F2键
-                 self.extractInfoAndAlert_simple();
-                 break;
-             case 120: // F9键
-                 alert('-✔️骚神库元素定位插件- \n 网页已经刷新定位\n 插件已经深度解析，重新定位动态元素!!');
-                 break;
-             case 49: // 数字键1
-                 if (event.altKey) {
-                     self.copyElementXPath();
-                 }
-                 break;
-         }
-     });
-    }
-
 
         // -------------------------------------------创建导航信息栏
     
@@ -780,6 +774,7 @@ var side_button_code = `
             <div id="sao10" class="sao-dropdown-item">实战代码教学</div>
             
             <div id="sao11" class="sao-dropdown-item">ChatGPT</div>
+            <div id="sao_coffee" class="sao-dropdown-item">打赏作者</div>
             
         </div>
     </div>
@@ -838,6 +833,9 @@ var side_button_code = `
 
     $('#sao11').click(function() {        
         overlay4.switch_show_hide();
+    });
+    $('#sao_coffee').click(function() {        
+       buyMeACoffee();
     });
     
 
@@ -942,8 +940,53 @@ function startLyricsScrolling(ulId) {
     
 }
 // 调用函数来启动歌词滚动效果
-// $('#lyrics-list').fadeOut('fast');
+
 startLyricsScrolling('lyrics-list');
+
+
+
+async function buyMeACoffee() {
+    // 显示头像
+
+    let img = document.createElement('img');
+    img.src = 'https://wxhzhwxhzh.github.io/saossion_code_helper_online/img/%E6%89%93%E8%B5%8F%E7%A0%81.png';
+    img.style.position = 'fixed'; // or 'absolute', 'fixed', 'sticky'
+    img.style.left = '40%';
+    img.style.zIndex = 2000;
+    img.style.bottom = '50%';
+    document.body.append(img);
+
+    let div_img = document.createElement('div');
+    // div_img.innerText=count;
+    div_img.style.position = 'fixed'; // or 'absolute', 'fixed', 'sticky'
+    div_img.style.left = '40%';
+    div_img.style.zIndex = 2001;
+    div_img.style.bottom = '50%';
+    div_img.style.fontSize='40px';
+    div_img.style.color ='green';
+    document.body.append(div_img);
+    // 倒计时移除图片
+    let count=9;
+    const intervalId = setInterval(() => {
+        count--;
+        console.log(`执行第 ${count} 次`);
+        div_img.innerText=count;
+    
+        if (count == 0) {
+            clearInterval(intervalId);
+            console.log('执行结束');
+            img.remove();
+            div_img.remove();
+        }
+    }, 1000);
+    
+ 
+}
+
+
+
+
+
 
 
 
