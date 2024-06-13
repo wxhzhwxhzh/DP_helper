@@ -789,6 +789,8 @@ var side_button_code = `
                         <li class="sao-dropdown-item"><a class="sao-url" href="https://drissionpage.cn/" target="_blank">DP官网</a></li>
                         <li class="sao-dropdown-item"><a class="sao-url" href="hhttps://wxhzhwxhzh.github.io/saossion_code_helper_online/" target="_blank">骚神官网</a></li>
                         <li class="sao-dropdown-item"><a class="sao-url" href="http://x.aichatos8.com/" target="_blank">AIchatOS</a></li>
+                        <li class="sao-dropdown-item"><a class="sao-url" href="https://www.52pojie.cn/forum.php?mod=forumdisplay&fid=5&filter=typeid&typeid=378" target="_blank">52破解</a></li>
+                        
 
                     </ul>
                 </li>
@@ -798,7 +800,7 @@ var side_button_code = `
                     <ul class="sao-submenu ">
                         <li id="sao_coffee" class="sao-dropdown-item">打赏作者</li>
                         <li id="sao_video" class="sao-dropdown-item">视频解析</li>
-                        <li class="sao-dropdown-item">空的</li>                       
+                        <li id="sao_kuozhan" class="sao-dropdown-item">扩展管理</li>                       
                     </ul>
                 </li>
   
@@ -855,6 +857,11 @@ var side_button_code = `
     $('#sao_video').click(function() {
         // overlay3.switch_show_hide();
         minOpen('https://wxhzhwxhzh.github.io/saossion_code_helper_online/vip/index.html');
+      
+    });
+    $('#sao_kuozhan').click(function() {
+       
+        minOpen('chrome://extensions/');
       
     });
     
