@@ -752,29 +752,59 @@ class MainApp{
 
 var side_button_code = `
 
+  
     <div id='yuananniu' class="yuananniu" title="开关">
         
         <ul id="lyrics-list">
             <li>骚</li>
             <li>神</li>
             <li>库</li>
-            
-            
         </ul>
+
         <div class="sao-dropdown-menu">
             <div id="sao1" class="sao-dropdown-item">元素浮窗开关</div>
             <div id="sao3" class="sao-dropdown-item">信息浮窗开关</div>
-            <div id="sao4" class="sao-dropdown-item">复制cookie</div>
-            <div id="sao5" class="sao-dropdown-item">复制UA</div>
             <div id="sao7" class="sao-dropdown-item">指纹检测</div>
             
-            <div id="sao2" class="sao-dropdown-item">启动代码生成</div>
-            <div id="sao_video" class="sao-dropdown-item">视频解析</div>
-            <div id="sao9" class="sao-dropdown-item">官方文档速查</div>
-            <div id="sao10" class="sao-dropdown-item">实战代码教学</div>
+            <div id="sao2" class="sao-dropdown-item">启动代码生成</div>            
+            <div id="sao9" class="sao-dropdown-item">官方文档</div>
+            <div id="sao10" class="sao-dropdown-item">实战代码</div>
             
-            <div id="sao11" class="sao-dropdown-item">ChatGPT</div>
-            <div id="sao_coffee" class="sao-dropdown-item">打赏作者</div>
+            <div id="sao11" class="sao-dropdown-item">AI对话</div>
+             
+
+            
+                <li class="sao-menu-item sao-dropdown-item">复制>
+                    <ul class="sao-submenu ">
+                        <li id="sao4" class="sao-dropdown-item">Cookie</li>
+                        <li id="sao5" class="sao-dropdown-item">UA</li>                       
+                        <li id="sao_copy_url" class="sao-dropdown-item">URL</li>                       
+                    </ul>
+                </li>
+                
+                <li class="sao-menu-item  sao-dropdown-item">骚网址>
+                    <ul class="sao-submenu ">                
+
+                        <li class="sao-dropdown-item"><a class="sao-url" href="https://yandex.com/" target="_blank">Yandex</a></li>
+                        <li class="sao-dropdown-item"><a class="sao-url" href="https://drissionpage.cn/" target="_blank">DP官网</a></li>
+                        <li class="sao-dropdown-item"><a class="sao-url" href="hhttps://wxhzhwxhzh.github.io/saossion_code_helper_online/" target="_blank">骚神官网</a></li>
+                        <li class="sao-dropdown-item"><a class="sao-url" href="http://x.aichatos8.com/" target="_blank">AIchatOS</a></li>
+
+                    </ul>
+                </li>
+
+
+                <li class="sao-menu-item  sao-dropdown-item">骚操作>
+                    <ul class="sao-submenu ">
+                        <li id="sao_coffee" class="sao-dropdown-item">打赏作者</li>
+                        <li id="sao_video" class="sao-dropdown-item">视频解析</li>
+                        <li class="sao-dropdown-item">空的</li>                       
+                    </ul>
+                </li>
+  
+            
+        
+        </div>
             
         </div>
     </div>
@@ -810,6 +840,11 @@ var side_button_code = `
         main_app.copyToClipboard(navigator.userAgent);
         alert('网页的UA已经复制到剪贴板 \n' + navigator.userAgent);
     });
+    $('#sao_copy_url').click(function() {
+        let url=window.location.href;
+        main_app.copyToClipboard(url);
+        alert('网页的url已经复制到剪贴板 \n' + url);
+    });
 
 
 
@@ -818,12 +853,14 @@ var side_button_code = `
     });
 
     $('#sao_video').click(function() {
-        overlay3.switch_show_hide();
+        // overlay3.switch_show_hide();
+        minOpen('https://wxhzhwxhzh.github.io/saossion_code_helper_online/vip/index.html');
       
     });
     
     $('#sao9').click(function() {        
-        overlay2.switch_show_hide();
+        // overlay2.switch_show_hide();
+        minOpen('https://drissionpage.cn/search?')
     });
 
     $('#sao10').click(function() {
@@ -832,7 +869,9 @@ var side_button_code = `
     });
 
     $('#sao11').click(function() {        
-        overlay4.switch_show_hide();
+        // overlay4.switch_show_hide();
+        // minOpen('https://free1.gptchinese.app/chat/new')
+        minOpen('https://kimi.moonshot.cn/');
     });
     $('#sao_coffee').click(function() {        
        buyMeACoffee();
@@ -981,6 +1020,14 @@ async function buyMeACoffee() {
     }, 1000);
     
  
+}
+
+
+async function minOpen(url) {
+    let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+width=0,height=0,left=-1000,top=-1000`;
+
+    window.open(url, 'test', params);
 }
 
 

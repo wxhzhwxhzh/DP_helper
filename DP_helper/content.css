@@ -183,7 +183,7 @@ ul {
 
 /* 下拉菜单项样式 */
 .sao-dropdown-item {
-    padding: 5px 10px; /* 内边距 */
+    padding: 3px 5px; /* 内边距 */
     cursor: pointer; /* 鼠标样式 */
     font-size: xx-small; /* 字体大小 */
     margin: 1px; /* 外边距 */
@@ -203,5 +203,40 @@ ul {
     background-color: lightgray; /* 背景颜色变化 */
     border: 3px solid rgb(145, 18, 18); /* 边框颜色变化 */
 }
+
+
+
+
+
+
+/* 隐藏子菜单 */
+.sao-submenu {
+    display: none;
+    position: absolute;
+    right: 100%;
+    bottom: 0;
+    width: 100px;
+    
+    background-color: #ffffff80; /* 背景颜色及透明度 */
+    border: 1px solid #ccc; /* 边框样式 */
+    border-radius: 5px; /* 边框圆角 */
+    padding: 5px 0; /* 内边距 */
+    
+}
+
+/* 显示子菜单 */
+.sao-menu-item:hover > .sao-submenu {
+    display: block;    
+    border-radius: 4px; /* 边框圆角 */
+    border-color: rgba(221, 146, 165, 0.349); /* 边框颜色 */
+}
+
+
+
+li {
+    list-style-type: none;
+}
+
+
 
 
