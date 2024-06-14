@@ -40,8 +40,10 @@
      /* 添加粗边框 */
      border-width: 1px; /* 设置边框宽度 */
      border-style: solid; /* 设置边框样式为实线 */
-     border-color: rgb(99, 89, 89); /* 设置边框颜色为黑色 */
+     border-color: rgb(155, 152, 152); /* 设置边框颜色为黑色 */
      padding: 5px; /* 为上、下、左、右都设置10像素的内边距 */
+     /* 添加阴影 */
+     box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.15); 
     
     
 }
@@ -166,7 +168,7 @@ ul {
     top: 100%; /* 相对于父元素的底部对齐 */
     left: 0; /* 相对于父元素的左侧对齐 */
     width: 120px;
-    background-color: #ffffff80; /* 背景颜色及透明度 */
+    background-color: #ffffffa4; /* 背景颜色及透明度 */
     border: 1px solid #ccc; /* 边框样式 */
     border-radius: 5px; /* 边框圆角 */
     padding: 5px 0; /* 内边距 */

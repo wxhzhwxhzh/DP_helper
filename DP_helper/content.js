@@ -1,5 +1,29 @@
 // 骚神库 DP_helper
 
+// 永久储存对象
+
+    chrome.storage.local.get('sao_config', function (result) {
+        var obj = result.sao_config;
+    
+        if (obj) {
+            console.log('成功获取');
+            console.log(obj);
+            window.sao_config=obj;
+        } else {
+            chrome.storage.local.set({ 'sao_config': {'DP官网':'https://www.drissionpage.cn/'} }, function () {
+                console.log('永久存储对象已经初始化');
+                console.log(obj);
+            });
+        }
+    });
+    
+
+function  persistent_storage(obj){
+    chrome.storage.local.set({ 'sao_config': obj}, function () {
+        console.log('数据成功持久化');
+        console.log(obj);
+    });
+}
 
 //----------封装主函数
 class MainApp{
@@ -754,12 +778,8 @@ var side_button_code = `
 
   
     <div id='yuananniu' class="yuananniu" title="开关">
-        
-        <ul id="lyrics-list">
-            <li>骚</li>
-            <li>神</li>
-            <li>库</li>
-        </ul>
+    骚       
+
 
         <div class="sao-dropdown-menu">
             <div id="sao1" class="sao-dropdown-item">元素浮窗开关</div>
@@ -782,14 +802,14 @@ var side_button_code = `
                     </ul>
                 </li>
                 
-                <li class="sao-menu-item  sao-dropdown-item">骚网址>
-                    <ul class="sao-submenu ">                
-
-                        <li class="sao-dropdown-item"><a class="sao-url" href="https://yandex.com/" target="_blank">Yandex</a></li>
-                        <li class="sao-dropdown-item"><a class="sao-url" href="https://drissionpage.cn/" target="_blank">DP官网</a></li>
-                        <li class="sao-dropdown-item"><a class="sao-url" href="hhttps://wxhzhwxhzh.github.io/saossion_code_helper_online/" target="_blank">骚神官网</a></li>
+                <li id="sao-wangzhi-li" class="sao-menu-item  sao-dropdown-item">收藏>
+                    <ul id="sao-wangzhi" class="sao-submenu ">            
+   
+                        
+                        <li id="sao-clear" class="sao-dropdown-item">*清空所有网址*</li>
+                        <li id="sao-shoucang" class="sao-dropdown-item">*收藏当前网址*</li>
                         <li class="sao-dropdown-item"><a class="sao-url" href="http://x.aichatos8.com/" target="_blank">AIchatOS</a></li>
-                        <li class="sao-dropdown-item"><a class="sao-url" href="https://www.52pojie.cn/forum.php?mod=forumdisplay&fid=5&filter=typeid&typeid=378" target="_blank">52破解</a></li>
+                        <li class="sao-dropdown-item"><a class="sao-url" href="https://wxhzhwxhzh.github.io/saossion_code_helper_online/" target="_blank">骚神网</a></li>
                         
 
                     </ul>
@@ -800,7 +820,7 @@ var side_button_code = `
                     <ul class="sao-submenu ">
                         <li id="sao_coffee" class="sao-dropdown-item">打赏作者</li>
                         <li id="sao_video" class="sao-dropdown-item">视频解析</li>
-                        <li id="sao_kuozhan" class="sao-dropdown-item">扩展管理</li>                       
+                        <li id="sao_kuozhan" class="sao-dropdown-item">定时刷新</li>                       
                     </ul>
                 </li>
   
@@ -951,43 +971,6 @@ function setupFloatingWindow() {
 
 
 
-function startLyricsScrolling(ulId) {
-    var lyricsContainer = $('#' + ulId).parent();
-    var lyricsList = $('#' + ulId + ' li');
-
-    var index = 0;
-    var length = lyricsList.length;
-    lyricsList.fadeOut(10);
-
-    function scrollLyrics() {
-        lyricsList.eq(index).fadeOut(1000, function() {
-            index = (index + 1) % length;
-            lyricsList.eq(index).fadeIn(1000);
-        });
-    }
-   
-
-    // var scrollInterval = setInterval(scrollLyrics, 2000); 
-
-    // 当鼠标悬停在歌词容器上时，停止滚动
-    lyricsContainer.on('mouseleave', function() {
-        clearInterval(scrollInterval);
-    });
-
-    // 当鼠标离开歌词容器时，恢复滚动
-    lyricsContainer.on('mouseenter', function() {
-        scrollInterval = setInterval(scrollLyrics, 2000);
-    });
-
-    
-    // lyricsList.eq(2).fadeIn(10);
-    // 初始化第一行歌词的淡入
-    lyricsList.eq(0).fadeIn(1000);
-    
-}
-// 调用函数来启动歌词滚动效果
-
-startLyricsScrolling('lyrics-list');
 
 
 
@@ -1037,9 +1020,81 @@ width=0,height=0,left=-1000,top=-1000`;
     window.open(url, 'test', params);
 }
 
+// 骚网址 功能区
+function append_url_to_button(name, url) {
+    // 获取ul元素
+    var ulElement = document.getElementById('sao-wangzhi');
+    //判断是否存在
+    for (var i = 0; i < ulElement.children.length; i++) {
+        if (ulElement.children[i].textContent === name) {
+            return;
+        }
+    }
+
+    // 创建新的li元素
+    var newLi = document.createElement('li');
+    newLi.className = 'sao-dropdown-item';
+
+    // 创建a元素并设置其属性
+    var newA = document.createElement('a');
+    newA.className = 'sao-url'; // 与现有的a元素保持一致的类名
+    newA.href = url; // 链接
+    newA.target = '_blank'; // 链接在新标签页打开
+    newA.textContent = name; // 链接显示的文本
+
+    // 将a元素添加到li元素中
+    newLi.appendChild(newA);
+
+    // 将新的li元素添加到ul元素中
+    ulElement.appendChild(newLi);
+}
 
 
 
+
+//  收藏网址的功能
+function append_website_to_button(){
+    var title = document.title;
+    var currentUrl = window.location.href;
+    window.sao_config[title]=currentUrl;
+    persistent_storage(window.sao_config);
+    update_sao_url();
+}
+
+
+
+// 更新网址的功能  主动执行和被动触发的函数.
+function update_sao_url(){   
+    Object.keys(window.sao_config).forEach((key)=>{
+        append_url_to_button(key,window.sao_config[key]);
+    })
+
+}
+
+document.getElementById('sao-clear').addEventListener('click',()=>{
+     // 获取ul元素
+     var ulElement = document.getElementById('sao-wangzhi');
+
+     // 获取ul元素的所有子元素
+     var children = ulElement.children;
+ 
+     // 计算需要删除的元素数量 保留前4个li
+     var numToRemove = children.length - 4;
+     
+     // 检查是否有多余的元素需要删除
+     if (numToRemove > 0) {
+         // 从后往前删除多余的元素
+         for (var i = children.length - 1; i >= 4; i--) {
+             ulElement.removeChild(children[i]);
+         }
+     }
+    window.sao_config={'DP官网':'https://www.drissionpage.cn/'};
+    persistent_storage(window.sao_config);
+    update_sao_url();
+});
+
+document.getElementById('sao-shoucang').addEventListener('click',append_website_to_button);
+document.getElementById('sao-wangzhi-li').addEventListener('mouseenter',update_sao_url);
 
 
 
