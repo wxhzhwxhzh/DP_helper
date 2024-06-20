@@ -809,7 +809,7 @@ var side_button_code = `
                         <li id="sao-clear" class="sao-dropdown-item">*清空所有网址*</li>
                         <li id="sao-shoucang" class="sao-dropdown-item">*收藏当前网址*</li>
                         <li class="sao-dropdown-item"><a class="sao-url" href="http://x.aichatos8.com/" target="_blank">AIchatOS</a></li>
-                        <li class="sao-dropdown-item"><a class="sao-url" href="https://wxhzhwxhzh.github.io/saossion_code_helper_online/" target="_blank">骚神网</a></li>
+                        <li class="sao-dropdown-item"><a class="sao-url" href="https://zhaoqize.github.io/puppeteer-api-zh_CN/" target="_blank">puppeteer</a></li>
                         
 
                     </ul>
