@@ -821,7 +821,7 @@ var side_button_code = `
                         <li id="sao_coffee" class="sao-dropdown-item">打赏作者</li>
                         <li id="sao_video" class="sao-dropdown-item">视频解析</li>
                         <li id="sao_kuozhan" class="sao-dropdown-item">定时刷新</li>                       
-                        <li id="sao_daili" class="sao-dropdown-item">动态代理</li>                       
+                        <li id="sao_daili" class="sao-dropdown-item">代码录制</li>                       
                     </ul>
                 </li>
   
