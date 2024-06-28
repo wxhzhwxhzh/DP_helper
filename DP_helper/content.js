@@ -667,6 +667,7 @@ class MainApp{
             this.element = document.createElement('div');
             
             this.element.id = id;
+            this.id=id;
             // 将遮罩层添加到 body 中
             document.body.appendChild(this.element);
             // 设置默认样式
@@ -680,9 +681,10 @@ class MainApp{
             this.iframeID=id+'_iframe';
             this.iframeInnerText = `
             <div id="sao_f" style="height: 100%; width: 50%; position: fixed; border-radius: 10px;">
-                <iframe src="${iframe_src}" width="100%" height="100%" frameborder="0"></iframe>
+                <iframe src="${iframe_src}" id="${this.iframeID}" width="100%" height="100%" frameborder="0"></iframe>
             </div>
                 `;
+            console.log(this.iframeInnerText);    
         
             this.isFisrtInit=true;          
    
@@ -703,6 +705,7 @@ class MainApp{
                 // alignItems: 'center'
             });
         }
+    
     
         // 切换显示/隐藏状态
         switch_show_hide() {
@@ -738,6 +741,8 @@ class MainApp{
 
     
     var overlay4 = new OverlayElement('overlay4',chrome.runtime.getURL('AI.html'));
+    var overlay6 = new OverlayElement('overlay6',chrome.runtime.getURL('json_viewer.html'));
+
     var overlay3 = new OverlayElement('overlay3','https://wxhzhwxhzh.github.io/saossion_code_helper_online/vip/index.html');
 
     var overlay5 = new OverlayElement('overlay5','https://wxhzhwxhzh.github.io/saossion_code_helper_online/jiaoxue/index.html');
@@ -809,7 +814,7 @@ var side_button_code = `
                         <li id="sao-clear" class="sao-dropdown-item">*清空所有网址*</li>
                         <li id="sao-shoucang" class="sao-dropdown-item">*收藏当前网址*</li>
                         <li class="sao-dropdown-item"><a class="sao-url" href="http://x.aichatos8.com/" target="_blank">AIchatOS</a></li>
-                        <li class="sao-dropdown-item"><a class="sao-url" href="https://zhaoqize.github.io/puppeteer-api-zh_CN/" target="_blank">puppeteer</a></li>
+                        <li class="sao-dropdown-item"><a class="sao-url" href="https://wxhzhwxhzh.github.io/saossion_code_helper_online/" target="_blank">骚神网</a></li>
                         
 
                     </ul>
@@ -821,7 +826,8 @@ var side_button_code = `
                         <li id="sao_coffee" class="sao-dropdown-item">打赏作者</li>
                         <li id="sao_video" class="sao-dropdown-item">视频解析</li>
                         <li id="sao_kuozhan" class="sao-dropdown-item">定时刷新</li>                       
-                        <li id="sao_daili" class="sao-dropdown-item">代码录制</li>                       
+                        <li id="sao_daili" class="sao-dropdown-item">动态代理</li>                       
+                        <li id="sao_json_viewer" class="sao-dropdown-item">Json viewer</li>                       
                     </ul>
                 </li>
   
@@ -894,6 +900,20 @@ var side_button_code = `
     $('#sao10').click(function() {
        overlay5.switch_show_hide();
       
+    });
+
+    $('#sao_json_viewer').click(function () {
+
+        overlay6.switch_show_hide();
+        const iframe_obj = document.getElementById('overlay6').querySelector('iframe');
+        console.log(iframe_obj);
+        body_html = $('body').html();
+
+        setTimeout(() => {
+            iframe_obj.contentWindow.postMessage(body_html, '*');
+
+        }, 1000);
+
     });
 
     $('#sao11').click(function() {        
@@ -1096,6 +1116,18 @@ document.getElementById('sao-clear').addEventListener('click',()=>{
 
 document.getElementById('sao-shoucang').addEventListener('click',append_website_to_button);
 document.getElementById('sao-wangzhi-li').addEventListener('mouseenter',update_sao_url);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
