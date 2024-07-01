@@ -38,62 +38,76 @@ function create_right_menu() {
 
     // 创建第二级子菜单项1
     chrome.contextMenus.create({
-        id: "copy",
-        title: "复制",
+        id: "sub_setup",
+        title: "录制当前元素的",
         contexts: ["all"]
     });
     chrome.contextMenus.create({
-        id: "copy_code",
-        title: "启动代码",
+        id: "luzhi_click",
+        title: "🔵click语法",
         contexts: ["all"],
-        parentId: "copy"
-    });
-    chrome.contextMenus.create({
-        id: "cookie",
-        title: "网页cookie",
-        contexts: ["all"],
-        parentId: "copy"
+        parentId: "sub_setup"
 
     });
     chrome.contextMenus.create({
-        id: "copy_input",
-        title: "input()语法",
-        contexts: ["editable"],
-        parentId: "copy"
-    });
-    chrome.contextMenus.create({
-        id: "copy_click",
-        title: "click()语法",
+        id: "luzhi_input",
+        title: "🔵input语法",
         contexts: ["all"],
-        parentId: "copy"
-    });
-    chrome.contextMenus.create({
-        id: "copy_ua",
-        title: "网页UA",
-        contexts: ["all"],
-        parentId: "copy"
-    });
+        parentId: "sub_setup"
 
+    });
+    chrome.contextMenus.create({
+        id: "luzhi_text",
+        title: "🔵text值",
+        contexts: ["all"],
+        parentId: "sub_setup"
+
+    });
+    chrome.contextMenus.create({
+        id: "luzhi_href",
+        title: "🔵超链接",
+        contexts: ["all"],
+        parentId: "sub_setup"
+
+    });
+    chrome.contextMenus.create({
+        id: "luzhi_shot",
+        title: "🔵截图",
+        contexts: ["all"],
+        parentId: "sub_setup"
+
+    });
     // 创建第二级子菜单项1
     chrome.contextMenus.create({
-        id: "sub_setup",
-        title: "设置",
+        id: "sub_page",
+        title: "录制当前页面",
         contexts: ["all"]
     });
     chrome.contextMenus.create({
-        id: "switch_ele_window",
-        title: "🔵元素浮窗开关",
+        id: "luzhi_title",
+        title: "🔵标题",
         contexts: ["all"],
-        parentId: "sub_setup"
+        parentId: "sub_page"
 
     });
     chrome.contextMenus.create({
-        id: "set_ele_window",
-        title: "🔵元素定位设置",
+        id: "luzhi_UA",
+        title: "🔵UA",
         contexts: ["all"],
-        parentId: "sub_setup"
+        parentId: "sub_page"
 
     });
+    chrome.contextMenus.create({
+        id: "luzhi_cookie",
+        title: "🔵cookie",
+        contexts: ["all"],
+        parentId: "sub_page"
+
+    });
+  
+
+   
+
     // 创建第二级子菜单项2
     chrome.contextMenus.create({
         id: "more",
@@ -139,8 +153,8 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
         "copy_click": copy_ele_and_click,
         "cookie": getCookie,
         "fingerPrint": scan_finger_print_,
-        "switch_ele_window": info_show_switch_,
-        "set_ele_window": set_ele_loc,
+        "luzhi_click": info_show_switch_,
+        "luzhi_input": set_ele_loc,
         "copy_code": copy_init_code,
         "copy_ua": getUA,
         "exe_js": exe_js,
