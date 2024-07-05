@@ -1118,7 +1118,17 @@ document.getElementById('sao-shoucang').addEventListener('click',append_website_
 document.getElementById('sao-wangzhi-li').addEventListener('mouseenter',update_sao_url);
 
 
-
+//监听文本选择，更新右键菜单文本
+document.addEventListener('selectionchange', function() {
+    var selection = window.getSelection();
+    if (selection && selection.toString().length > 0) {
+        console.log('Selected text:', selection.toString());
+        
+          // 更新右键菜单菜单名
+        //   chrome.contextMenus.update("youdao", { title: `有道翻译 ${selection.toString()} ` });
+          chrome.runtime.sendMessage({ youdao_text: selection.toString() });
+    }
+});
 
 
 

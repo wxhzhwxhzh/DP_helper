@@ -22,3 +22,5 @@ window.addEventListener('message', function(event) {
     // 将信息插入到 textarea 中
     textarea.value += text;
 }
+
+

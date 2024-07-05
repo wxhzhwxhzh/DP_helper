@@ -8,9 +8,10 @@ create_right_menu();
 function create_right_menu() {
 
     chrome.contextMenus.create({
-        id: "F9",
-        title: "刷新定位",
-        contexts: ["all"]
+        id: "youdao",
+        title: "有道翻译",
+        contexts: ["selection"],
+       
     });
 
     chrome.contextMenus.create({
@@ -141,13 +142,18 @@ function create_right_menu() {
 
 }
 
-// 根据菜单项ID调用不同的函数
+// chrome.scripting.executeScript({
+//     target:tab.id,
+//     function:update_contextMenus,
+// });
+
+
+// 根据菜单项ID调用不同的函数// 根据菜单项ID调用不同的函数
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
     const functions = {
         "copyDP_simple": showElementDP_simple,
         "copyDP": showElementDP,
-        "copyXpath": showElementXpath,
-        "F9": refresh,
+        "copyXpath": showElementXpath,        
         "vip": parserVideo,
         "copy_input": copy_ele_and_input,
         "copy_click": copy_ele_and_click,
@@ -159,33 +165,41 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
         "copy_ua": getUA,
         "exe_js": exe_js,
         "get_img": getAllImageLinks,
+        "youdao": youdao,
         "download_video": download_video
-
     };
 
     const func = functions[info.menuItemId];
+    
     if (func) {
-        chrome.scripting.executeScript({
-            target: {
-                tabId: tab.id
-            },
+        let executeScriptParams = {
+            target: { tabId: tab.id },
             function: func
-        });
+        };
+
+        // 如果是特定的菜单项，传入额外的参数
+        if (info.menuItemId === 'youdao') {
+            executeScriptParams.args = [info.selectionText];
+            // chrome.contextMenus.update("youdao",{title:`有道翻译 ${info.selectionText} `});
+            console.log(info);
+        }
+
+        chrome.scripting.executeScript(executeScriptParams);
     } else {
-        console.error("Unsupported menu item ID:", info.menuItemId);
+        console.log("Unsupported menu item ID:", info.menuItemId);
     }
 });
 
+
 // 监听函数
 
-// 监听来自 tool.js Script 的消息
+// 监听来自 content.js Script 的消息
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     // 如果消息包含标题信息
-    if (message.ele_count) {
-        // 更新右键菜单的二级菜单名
-        chrome.contextMenus.update("F9", {
-            title: `刷新定位(已定位${message.ele_count}个元素)`
-        });
+    if (message.youdao_text) {
+         // 更新右键菜单的二级菜单名
+         chrome.contextMenus.update("youdao", { title: `用有道翻译  "${message.youdao_text}" ` });
+      
     }
 });
 
@@ -231,9 +245,12 @@ function copy_ele_and_click() {
     main_app.extractInfoAndAlert_simple_click();
 }
 
-function refresh() {
-    main_app.addClickEventToInputs();
-    alert('-✔️骚神库元素定位插件- \n  插件已经深度解析，并重新定位动态元素!!');
+
+function youdao(word) {
+    // main_app.addClickEventToInputs();
+    // alert('-✔️骚神库元素定位插件- \n  插件已经深度解析，并重新定位动态元素!!');
+    window.open(`https://dict.youdao.com/result?word=${word}&lang=en`);
+
 
 }
 

@@ -1,3 +1,4 @@
+// const Chrome = require("chrome-remote-interface/lib/chrome");
 
 //  自动消失的提示框
 function AutoDismissAlert(message, duration) {
@@ -193,5 +194,8 @@ class SelectAlert {
 // 使用示例
 const selectAlert = new SelectAlert();
 selectAlert.hide();
+
+
+
 
 
