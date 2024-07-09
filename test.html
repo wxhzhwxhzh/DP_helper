@@ -1,85 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>级联菜单示例</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Dynamic Checkboxes</title>
 </head>
 <body>
+    <div id="test"></div>
 
-
-
-
-
-    <div id='yuananniu' class="yuananniu" title="开关">
-        
-        <ul id="lyrics-list">
-            <li>骚</li>
-            <li>神</li>
-            <li>库</li>
-        </ul>
-
-        <div class="sao-dropdown-menu">
-            <div id="sao1" class="sao-dropdown-item">元素浮窗开关</div>
-            <div id="sao3" class="sao-dropdown-item">信息浮窗开关</div>
-            <div id="sao4" class="sao-dropdown-item">复制cookie</div>
-            <div id="sao5" class="sao-dropdown-item">复制UA</div>
-            <div id="sao7" class="sao-dropdown-item">指纹检测</div>
+    <script>
+        function createCheckboxes(jsonData) {
+            // 获取div容器
+            const container = document.getElementById('test');
             
-            <div id="sao2" class="sao-dropdown-item">启动代码生成</div>
-            <div id="sao_video" class="sao-dropdown-item">视频解析</div>
-            <div id="sao9" class="sao-dropdown-item">官方文档</div>
-            <div id="sao10" class="sao-dropdown-item">实战代码</div>
-            
-            <div id="sao11" class="sao-dropdown-item">AI对话</div>
-             
+            // 清空容器中的内容
+            container.innerHTML = '';
 
-            <ul class="main-menu">
-            
-            <li class="menu-item sao-dropdown-item">骚网址
-                <ul class="submenu ">                
+            // 遍历jsonData对象中的每个键值对
+            for (const key in jsonData) {
+                if (jsonData.hasOwnProperty(key)) {
+                    // 创建一个label元素
+                    const label = document.createElement('label');
+                    label.textContent = key;
 
-                    <li class="sao-dropdown-item"><a class="sao-url" href="https://yandex.com/" target="_blank">Yandex</a></li>
-                    <li class="sao-dropdown-item"><a class="sao-url" href="https://drissionpage.cn/" target="_blank">DP官网</a></li>
-                    <li class="sao-dropdown-item"><a class="sao-url" href="hhttps://wxhzhwxhzh.github.io/saossion_code_helper_online/" target="_blank">骚神官网</a></li>
-                    <li class="sao-dropdown-item"><a class="sao-url" href="http://x.aichatos8.com/" target="_blank">AIchatOS</a></li>
+                    // 创建一个checkbox元素
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = jsonData[key];
 
-                </ul>
-            </li>
+                    // 将checkbox添加到label中
+                    label.appendChild(checkbox);
 
-            <li class="menu-item sao-dropdown-item">其他
-                <ul class="submenu ">
-                    <li id="sao_coffee" class="sao-dropdown-item">打赏作者</li>
-                    <li class="sao-dropdown-item">骚操作</li>
-                    <li class="sao-dropdown-item">设计</li>                       
-                    
-                </ul>
-            </li>
-  
-        </ul>
-        
-        </div>
-            
-        </div>
-    </div>
+                    // 将label添加到容器中
+                    container.appendChild(label);
 
+                    // 添加一个换行符
+                    container.appendChild(document.createElement('br'));
+                }
+            }
+        }
 
+        // 示例JSON数据
+        const jsonData = {
+            "Option 1": "value1",
+            "Option 2": "value2",
+            "Option 3": "value3",
+            "Option 4": "value4"
+        };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // 调用函数创建复选框
+        createCheckboxes(jsonData);
+    </script>
 </body>
 </html>
