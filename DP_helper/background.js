@@ -127,12 +127,7 @@ function create_right_menu() {
         contexts: ["all"],
         parentId: "more"
     });
-    chrome.contextMenus.create({
-        id: "get_img",
-        title: "获取所有图片地址",
-        contexts: ["all"],
-        parentId: "more"
-    });
+
     chrome.contextMenus.create({
         id: "download_video",
         title: "视频解析下载",
@@ -164,7 +159,7 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
         "copy_code": copy_init_code,
         "copy_ua": getUA,
         "exe_js": exe_js,
-        "get_img": getAllImageLinks,
+        
         "youdao": youdao,
         "download_video": download_video
     };
@@ -289,48 +284,4 @@ function copy_init_code() {
     // AutoDismissAlert('已经复制 \n'+init_code,2000);
     alert('当前网页启动代码已经复制 \n' + init_code);
 }
-function getAllImageLinks() {
-    // 获取当前网页中所有的图片元素
-    const images = document.getElementsByTagName('img');
 
-    // 创建一个空数组来存储图片链接地址
-    const imageLinks = [];
-
-    // 遍历所有图片元素，提取图片链接地址并添加到数组中
-    for (let i = 0; i < images.length; i++) {
-        const image = images[i];
-        const src = image.src;
-        // 获取图片链接地址
-        imageLinks.push(src);
-        // 将链接地址添加到数组中
-    }
-
-    // 创建一个新的 div 元素
-    const div = document.createElement('div');
-    div.id = 'img_url';
-    // 设置 div 元素的 id 属性为 img_url
-
-    // 将图片链接转换成带链接的 <a> 标签并添加到 div 元素中
-    imageLinks.forEach(link=>{
-        const a = document.createElement('a');
-        a.href = link;
-        // 设置 <a> 标签的 href 属性为图片链接地址
-        a.textContent = link;
-        // 设置 <a> 标签的文本内容为图片链接地址
-        div.appendChild(a);
-        // 将 <a> 标签添加到 div 元素中
-        div.appendChild(document.createElement('br'));
-        // 添加一个换行
-    }
-    );
-
-    // 将新创建的 div 元素插入到 body 中
-    document.body.appendChild(div);
-
-    // 打印出获取到的所有图片链接地址
-    console.log("当前网页所有图片链接地址：");
-    console.log(imageLinks);
-
-    // 返回图片链接数组（可选）
-    return imageLinks;
-}

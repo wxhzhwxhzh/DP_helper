@@ -22,19 +22,19 @@
     <hr>
    
     <div class="tab-pane fade in active  biaoqianye" id="home" >
-        <p>JS逆向助手 1.0版本</p>
+        <p>JS逆向助手 1.0测试版</p>
         
 
         <div class="yi_hang">
-            浏览器关联
+            全局变量HOOK
             <input type="radio" id="option1" name="options" value="option1" checked>
-            <label for="option1">自动选择</label>
+            <label for="option1">Windows</label>
 
             <input type="radio" id="option2" name="options" value="option2">
-            <label for="option2">手动选择</label>
+            <label for="option2">Document</label>
 
             <input type="radio" id="option3" name="options" value="option3">
-            <label for="option3">指纹浏览器</label>
+            <label for="option3">navigator</label>
 
 
         </div>
@@ -42,31 +42,26 @@
         <div class="yi_hang">
             <span class="label1">指定需要hook的全局变量名：</span>
 
-            <input id="set_browser" class="input_button1" type="text" placeholder="默认为空是本地谷歌浏览器"
+            <input id="set_browser" class="input_button1" type="text" placeholder=" "
                 style="width: 350px;">
 
         </div>
 
         <div class="yi_hang">
-            <span style="margin-right: 15px;">启动前设置</span>
+            <span style="margin-right: 15px;">破解无线Debug</span>
 
 
             <input type="checkbox" id="wutou" name="checkbox" value="check1">
-            <label for="check1">无头</label>
+            <label for="check1">补环境</label>
 
 
             <input type="checkbox" id="jingyin" name="checkbox" value="check2">
-            <label for="check2">静音</label>
+            <label for="check2">js注入</label>
+
+            <input type="checkbox" id="jingyin" name="checkbox" value="check2">
+            <label for="check2">变量替换</label>
 
 
-            <input type="checkbox" id="duokai" name="checkbox" value="check3">
-            <label for="check3">多开</label>
-
-            <input type="checkbox" id="hulue" name="checkbox" value="check4">
-            <label for="check4">忽略证书错误</label>
-
-            <input type="checkbox" id="nojs" name="checkbox" value="check5">
-            <label for="check5">无JS</label>
 
         </div>
 
@@ -132,6 +127,7 @@
 
     </div>
     <script src="js/js_hook.js"></script>
+    <script src="devtool/dev_tool.js"></script>
 
 
 </body>

@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "骚神库DP助手",
-    "version": "7.9",
+    "version": "8.0",
     "permissions":
 	[
 		"contextMenus", 
@@ -43,6 +43,7 @@
         "default_popup": "popup.html"
   
     },
+    "devtools_page": "dev_tool.html",
     "background": {
         "service_worker": "background.js"
       }
