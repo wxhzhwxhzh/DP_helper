@@ -175,3 +175,30 @@ if(testDiv){
     }
   });
 }
+var copyBTN=document.getElementById('copy');
+// 添加复制事件监听器
+document.getElementById('copy').addEventListener('click', () => {
+  // 创建新的 textarea 元素，并设置其值为要复制的文本内容
+  const textarea = document.createElement('textarea');
+  textarea.value = document.getElementById('xuanze_info').innerText;
+
+  // 将 textarea 添加到文档中
+  document.body.appendChild(textarea);
+
+  // 选中 textarea 中的文本
+  textarea.select();
+  textarea.setSelectionRange(0, 99999); // 兼容性处理
+
+  // 尝试执行复制操作
+  document.execCommand('copy');
+
+  // 移除 textarea 元素
+  document.body.removeChild(textarea);
+
+  // 可以根据需要在控制台打印成功信息
+  console.log('已复制到剪贴板');
+  copyBTN.innerText='复制成功';
+  setTimeout(() => {
+    copyBTN.innerText='复制自定义语法';
+  }, 1000);
+});
