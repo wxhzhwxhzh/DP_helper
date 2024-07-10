@@ -1,14 +1,15 @@
 {
     "manifest_version": 3,
     "name": "骚神库DP助手",
-    "version": "8.1",
+    "version": "8.1.1",
     "permissions":
 	[
 		"contextMenus", 
 		"tabs", 
 		"notifications", 
 		"webRequest", 
-		 
+		"declarativeNetRequest",
+        "declarativeNetRequestFeedback",
 		"storage",
         "activeTab",
         "scripting"

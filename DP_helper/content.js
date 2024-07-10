@@ -1131,11 +1131,28 @@ document.addEventListener('selectionchange', function() {
 });
 
 
+// 从 content script 发送消息到 background script
+async function send_action(msg){
+
+    let response = await  chrome.runtime.sendMessage({ action: msg, data: { message: "Hello from content script!" } });
+    console.log("接受信息- response from background script:", response);
+}
+
+if(window.location.href.includes('ahrefs.com')){
+    send_action('listen_data');
+}
 
 
 
+  // 监听来自 devtool script 的消息
+  chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.action === "ziyuan") {
+        console.log("Message from 调试 script:", message.data.message);
 
-
+        // 可以发送回复消息给 content script
+        sendResponse({ received: true, message: "Message received by background script!" });
+    }
+});
 
 
 

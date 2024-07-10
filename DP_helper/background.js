@@ -1,3 +1,38 @@
+chrome.webRequest.onCompleted.addListener(
+    function(details) {
+        // console.log(details);
+      if ( details.url.includes("GetFreeBacklinksList")) {
+        console.log("Fetch request 数据 completed for stGetFreeBacklinksList:", details);
+               // 获取响应数据
+
+            console.log("Response body--:", details.responseBody);
+         
+      }
+    },
+    { urls: ["<all_urls>"] },   // 匹配所有网址
+    ["responseHeaders"]
+  );
+
+
+
+  // 在 background script 中监听来自 content script 的消息
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.action === "listen_data") {
+        console.log("Message from content script:", message.data.message);
+
+        // 可以发送回复消息给 content script
+        sendResponse({ received: true, message: "Message received by background script!" });
+    }
+    if (message.action === "ziyuan") {
+        console.log("Message from 调试 script:", message.data.message);
+
+        // 可以发送回复消息给 content script
+        sendResponse({ received: true, message: "Message received by background script!" });
+    }
+});
+
+
+
 // 检查是否已存在具有相同 ID 的菜单项,如果有就清空
 chrome.contextMenus.removeAll(
 );
@@ -284,4 +319,7 @@ function copy_init_code() {
     // AutoDismissAlert('已经复制 \n'+init_code,2000);
     alert('当前网页启动代码已经复制 \n' + init_code);
 }
+
+
+
 

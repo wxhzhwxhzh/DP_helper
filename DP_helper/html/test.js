@@ -41,7 +41,48 @@ chrome.devtools.inspectedWindow.getResources((resources) => {
   document.body.appendChild(ele);
 });
 
+chrome.devtools.inspectedWindow.getResources(function(resources) {
+  // 遍历所有资源，查找名称为 'stGetFreeBacklinksList' 的资源
+  resources.forEach(function(resource) {
+      if (resource.url.includes('GetFreeBacklinksList')) {
+          // 找到了名为 'stGetFreeBacklinksList' 的资源
+          resource.getContent(function(content, encoding) {
+              if (encoding === 'base64') {
+                  // 如果内容是 base64 编码的，需要解码
+                  content = atob(content);
+              }
+              try {
+                  const jsonData = JSON.parse(content);
+                  console.log('JSON data for stGetFreeBacklinksList:', jsonData);
+                  // data_to_window(content);
+                  // 在这里处理获取到的 JSON 数据
+                  
+              } catch (error) {
+                  console.error('Error parsing JSON:', error);
+              }
+          });
+      }
+  });
+});
+
+
+data_to_window('你想认识7');
+
+function data_to_window(data){
+  jscode='window.info1="ppp"'.replace('ppp',data)
   
+  chrome.devtools.inspectedWindow.eval(
+    jscode, // $0 refers to the currently selected element in the Elements panel
+    (result, isException) => {})
+}
+
+
+// 从 content script 发送消息到 background script
+async function send_action(msg,shuju){
+
+  let response = await  chrome.runtime.sendMessage({ action: msg, data: shuju });
+  console.log("接受信息- response from background script:", response);
+}
 
 
 
