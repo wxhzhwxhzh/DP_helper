@@ -15,7 +15,7 @@ if (elem) { \
     } \
     return JSON.stringify(attributes, null, 2); \
 } else { \
-    return "No element selected or element has no ID"; \
+    return "No element selected "; \
 } \
 })()';
 
@@ -32,8 +32,7 @@ chrome.devtools.panels.elements.onSelectionChanged.addListener(() => {
                 console.log('返回结果:', result);
                 window.info=result;
                 document.getElementById('content').innerText=result;
-                convertInnerText();
-                convertInnerText_simple();
+                convertInnerText();                
                 createCheckboxes(JSON.parse(result));
                 updateSelectedCheckboxes();
             }
@@ -72,31 +71,7 @@ chrome.devtools.panels.elements.onSelectionChanged.addListener(() => {
     }
 }
 
-function convertInnerText_simple() {
-    var json_data = document.getElementById('convert').innerText;
-    
-    var attributesString = "";
-    if(json_data){
-      let  arr=json_data.split('@@');
-      for (var i = 0; i < arr.length; i++) {
-        if (i==0) {
-          attributesString += arr[i];
-        } 
-         if(checkString(arr[i])){
-          attributesString += '@@' + arr[i];
-          break;
-         };
-    }
 
-    }
-  
-
-        document.getElementById('simple_convert').innerText = attributesString;        
-
-  
-}
-
-console.log(1231213);
 
 function isJsonEmpty(json) {
   return JSON.stringify(json) === '{}';
@@ -107,12 +82,12 @@ function checkString(str) {
 }
 
 
-//创建自定义选择框
+//创建自定义选择复选框
 
 function createCheckboxes(jsonData) {
   // 获取div容器
   const container = document.getElementById('xuanze');
-  
+
   // 清空容器中的内容
   container.innerHTML = '';
 
@@ -127,7 +102,13 @@ function createCheckboxes(jsonData) {
           const checkbox = document.createElement('input');
           checkbox.type = 'checkbox';
           checkbox.value = jsonData[key];
-          if(key=='tagname') checkbox.checked=true;
+          if (key == 'tagname')
+              checkbox.checked = true;
+          if (key == 'id')
+              checkbox.checked = true;             
+          if (key == 'innerText')
+              checkbox.checked = true;
+          
 
           // 将checkbox添加到label中
           label.appendChild(checkbox);
@@ -142,11 +123,12 @@ function createCheckboxes(jsonData) {
 }
 
 
+
 //添加监听函数
 function updateSelectedCheckboxes() {
   // 获取所有复选框
   const checkboxes = document.querySelectorAll('#xuanze input[type="checkbox"]');
-  var xuze_info='';
+  var xuanze_info='';
 
   checkboxes.forEach(checkbox => {
 
@@ -157,10 +139,11 @@ function updateSelectedCheckboxes() {
           
           let one_info= `@@${k}=${checkbox.value}`;
           if(k=='tagname') one_info=`t:${checkbox.value}`;
-          xuze_info+=one_info;
+          if(k=='innerText') one_info=`@@text()=${checkbox.value}`;
+          xuanze_info+=one_info;
       }
   });
-  document.getElementById('xuanze_info').innerText=xuze_info;
+  document.getElementById('xuanze_info').innerText=xuanze_info;
 }
 
 // 获取 #test 元素
@@ -199,6 +182,6 @@ document.getElementById('copy').addEventListener('click', () => {
   console.log('已复制到剪贴板');
   copyBTN.innerText='复制成功';
   setTimeout(() => {
-    copyBTN.innerText='复制自定义语法';
+    copyBTN.innerText='复制下面语法';
   }, 1000);
 });

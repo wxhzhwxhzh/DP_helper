@@ -14,22 +14,19 @@ chrome.devtools.panels.elements.createSidebarPane('💖️骚神语法转换', f
     console.log('user switched to代码生成助手');
   });
   
-  chrome.devtools.panels.create('📗官方文档', 'icon.png', 'html/dp_doc.html', () => {
+  chrome.devtools.panels.create('📗DP文档速查', 'icon.png', 'html/dp_doc.html', () => {
     console.log('user switched to代码生成助手');
   });
   
   chrome.devtools.panels.create('📙实战代码', 'icon.png', 'html/teach_doc.html', () => {
     console.log('user switched to代码生成助手');
-  });
-  
-  chrome.devtools.panels.create('♋AI 对话', 'icon.png', 'html/AI_chat.html', () => {
-    console.log('user switched to代码生成助手');
-  });
-  // chrome.devtools.panels.create('🔴逆向助手', 'icon.png', 'html/demo.html', () => {
-  //   console.log('user switched to代码生成助手');
-  // });
-  
+  });  
+
   chrome.devtools.panels.create('🔵抓包助手', 'icon.png', 'html/demo.html', () => {
     console.log('user switched to代码生成助手');
   });
+  chrome.devtools.panels.create('🔴高手进阶', 'icon.png', 'html/jin_jie.html', () => {
+    console.log('user switched to代码生成助手');
+  });
+  
   

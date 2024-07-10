@@ -30,9 +30,10 @@ chrome.devtools.inspectedWindow.getResources((resources) => {
 
   // 创建一个文本域元素
   let ele = document.createElement('textarea');
-  ele.style.width = '100%';
-  ele.style.height = '300px'; // 设置文本域的高度
-  ele.style.fontFamily = 'monospace'; // 使用等宽字体以保持格式化的内容
+  ele.style.width = '95%';
+  ele.style.height = '400px'; // 设置文本域的高度
+  ele.style.fontFamily = 'consolas'; // 使用等宽字体以保持格式化的内容
+  ele.style.margin = '5px';
   
   ele.textContent = result;
 
