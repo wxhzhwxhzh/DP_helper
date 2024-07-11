@@ -16,8 +16,8 @@ chrome.devtools.panels.elements.createSidebarPane('💖️骚神语法转换', f
     
   });
   
-  chrome.devtools.panels.create('📗DP文档速查', 'icon.png', 'html/dp_doc.html', () => {
-    console.log('user switched to📗DP文档速查');
+  chrome.devtools.panels.create('📗cURL助手', 'icon.png', 'html/curl_helper.html', () => {
+    console.log('user switched to📗异步助手');
   });
   
   chrome.devtools.panels.create('📙实战代码', 'icon.png', 'html/teach_doc.html', () => {
