@@ -684,7 +684,7 @@ class MainApp{
                 <iframe src="${iframe_src}" id="${this.iframeID}" width="100%" height="100%" frameborder="0"></iframe>
             </div>
                 `;
-            console.log(this.iframeInnerText);    
+            // console.log(this.iframeInnerText);    
         
             this.isFisrtInit=true;          
    
@@ -1133,7 +1133,6 @@ document.addEventListener('selectionchange', function() {
 
 // 从 content script 发送消息到 background script
 async function send_action(msg){
-
     let response = await  chrome.runtime.sendMessage({ action: msg, data: { message: "Hello from content script!" } });
     console.log("接受信息- response from background script:", response);
 }
@@ -1142,17 +1141,15 @@ if(window.location.href.includes('ahrefs.com')){
     send_action('listen_data');
 }
 
-
-
-  // 监听来自 devtool script 的消息
-  chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    if (message.action === "ziyuan") {
-        console.log("Message from 调试 script:", message.data.message);
-
-        // 可以发送回复消息给 content script
-        sendResponse({ received: true, message: "Message received by background script!" });
+// 消息监听站
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.action === "抓包助手") {
+        console.log("抓包助手>后台脚本> -->", message.json.json);     
     }
+   
 });
+
+
 
 
 

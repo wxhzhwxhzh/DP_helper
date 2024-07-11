@@ -1,36 +1,25 @@
-chrome.webRequest.onCompleted.addListener(
-    function(details) {
-        // console.log(details);
-      if ( details.url.includes("GetFreeBacklinksList")) {
-        console.log("Fetch request 数据 completed for stGetFreeBacklinksList:", details);
-               // 获取响应数据
-
-            console.log("Response body--:", details.responseBody);
-         
-      }
-    },
-    { urls: ["<all_urls>"] },   // 匹配所有网址
-    ["responseHeaders"]
-  );
 
 
 
-  // 在 background script 中监听来自 content script 的消息
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    if (message.action === "listen_data") {
-        console.log("Message from content script:", message.data.message);
-
-        // 可以发送回复消息给 content script
-        sendResponse({ received: true, message: "Message received by background script!" });
-    }
-    if (message.action === "ziyuan") {
-        console.log("Message from 调试 script:", message.data.message);
-
-        // 可以发送回复消息给 content script
-        sendResponse({ received: true, message: "Message received by background script!" });
+// 在 background 页面接收来自 DevTools 的消息
+chrome.runtime.onConnect.addListener(function(port) {
+    if (port.name === "devtools-page") {
+        // Event listener for messages from the devtools page
+        port.onMessage.addListener(function(message) {
+            console.log("Message from 抓包助手:", message);
+            send_action_to_currentWindow(message);
+        });
     }
 });
 
+
+ // 从 background.js 向 content.js 发送消息
+function send_action_to_currentWindow(data){   
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        // tabs 是一个数组，包含当前窗口中的所有标签页对象
+        chrome.tabs.sendMessage(tabs[0].id, { action: "抓包助手",json:data });
+    });
+}
 
 
 // 检查是否已存在具有相同 ID 的菜单项,如果有就清空
