@@ -1146,9 +1146,30 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.action === "抓包助手") {
         console.log("抓包助手>后台脚本> -->", message.json.json);     
     }
+
    
 });
 
+// 监听popup页面的消息
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.action == "on" || message.action == "off") {
+        show_or_hide_yuananniu();
+    }
+
+});
+
+//初始化
+show_or_hide_yuananniu();
+function show_or_hide_yuananniu(){
+    chrome.storage.local.get('yuananniu_show', function(result) {
+        if (result.yuananniu_show) {
+            $('#yuananniu').show();
+        } else {
+            $('#yuananniu').hide();
+        }
+        
+    });
+}
 
 
 

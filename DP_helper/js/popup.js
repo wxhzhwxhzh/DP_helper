@@ -31,17 +31,7 @@ function set_off() {
 
 }
 
-function toggleSwitch() {
-    // 切换开关状态
-    var checkBox = document.getElementById("kaiguan1");
-    if (checkBox.checked) {        
-        
-        set_off();
-    } else {       
-        
-        set_on();
-    }
-}
+
 function toggleSwitch_button() {
         // 切换开关状态
 
@@ -78,4 +68,36 @@ document.getElementById('search').addEventListener('click', open_chaxun_website)
 
 
 
+
+// 获取到 checkbox 元素
+const checkbox = document.getElementById('kaiguan2');
+
+
+// 添加监听事件
+checkbox.addEventListener('change', function() {
+    // 查询当前活动标签页
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        // tabs 是一个数组，可能有多个标签页，我们通常只取第一个（当前活动标签页）
+        const activeTab = tabs[0];        
+        
+        if (checkbox.checked) {
+            chrome.storage.local.set({ 'yuananniu_show': true }, function () {});
+            chrome.tabs.sendMessage(activeTab.id, { action: "on" });
+            console.log('打开超级按钮');
+        } else {
+            chrome.storage.local.set({ 'yuananniu_show': false }, function () {});
+            chrome.tabs.sendMessage(activeTab.id, { action: "off" });
+            console.log('关闭超级按钮');
+        }
+    });
+   
+});
+
+
+
+// 在 popup 页面中向 background.js 发送消息
+chrome.runtime.sendMessage({ from: "popup_page" }, function(response) {
+    console.log("Received response from background:", response.yuananniu_show.yuananniu_show);
+    checkbox.checked=response.yuananniu_show.yuananniu_show;
+});
 

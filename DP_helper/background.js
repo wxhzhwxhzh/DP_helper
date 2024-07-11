@@ -1,4 +1,32 @@
+// 永久储存对象
 
+
+
+chrome.runtime.onInstalled.addListener(function(details) {
+    if (details.reason === 'install' || details.reason === 'update' ) {
+        console.log('首次安装');
+        
+        chrome.storage.local.set({ 'yuananniu_show': true }, function () {
+            console.log('永久存储对象 yuananiu_show 已经初始化');            
+        });
+
+    } else {
+        console.log('早已安装');
+    }
+});
+
+// 在 background.js 中接收来自 popup 页面的消息
+// 在 background.js 中接收来自 popup 页面的消息
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.from === "popup_page") {
+        (async () => {
+            let aa = await chrome.storage.local.get('yuananniu_show');
+            sendResponse({ yuananniu_show: aa });
+        })();
+        // 返回 true 表示异步操作，sendResponse 将在异步操作完成后调用
+        return true;
+    }
+});
 
 
 // 在 background 页面接收来自 DevTools 的消息
@@ -308,6 +336,7 @@ function copy_init_code() {
     // AutoDismissAlert('已经复制 \n'+init_code,2000);
     alert('当前网页启动代码已经复制 \n' + init_code);
 }
+
 
 
 
