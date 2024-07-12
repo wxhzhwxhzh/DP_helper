@@ -240,6 +240,13 @@ li {
     list-style-type: none;
 }
 
+#logo_font {
+    font-family: 黑体, sans-serif; /* 设置字体 */
+    
+    font-weight: bolder; /* 设置字体粗细 */
+    font-size: larger;
+}
+
 
 
 
