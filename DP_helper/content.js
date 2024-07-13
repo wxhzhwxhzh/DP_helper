@@ -2,20 +2,20 @@
 
 // 永久储存对象
 
-    chrome.storage.local.get('sao_config', function (result) {
-        var obj = result.sao_config;
-    
-        if (obj) {
-            console.log('成功获取');
+chrome.storage.local.get('sao_config', function (result) {
+    var obj = result.sao_config;
+
+    if (obj) {
+        console.log('成功获取');
+        console.log(obj);
+        window.sao_config=obj;
+    } else {
+        chrome.storage.local.set({ 'sao_config': {'DP官网':'https://www.drissionpage.cn/'} }, function () {
+            console.log('永久存储对象已经初始化');
             console.log(obj);
-            window.sao_config=obj;
-        } else {
-            chrome.storage.local.set({ 'sao_config': {'DP官网':'https://www.drissionpage.cn/'} }, function () {
-                console.log('永久存储对象已经初始化');
-                console.log(obj);
-            });
-        }
-    });
+        });
+    }
+});
     
 
 function  persistent_storage(obj){
@@ -1118,7 +1118,7 @@ document.getElementById('sao-shoucang').addEventListener('click',append_website_
 document.getElementById('sao-wangzhi-li').addEventListener('mouseenter',update_sao_url);
 
 
-//监听文本选择，更新右键菜单文本
+//监听文本选择，把消息发送给后台脚本，更新右键菜单
 document.addEventListener('selectionchange', function() {
     var selection = window.getSelection();
     if (selection && selection.toString().length > 0) {
@@ -1131,34 +1131,27 @@ document.addEventListener('selectionchange', function() {
 });
 
 
-// 从 content script 发送消息到 background script
-async function send_action(msg){
-    let response = await  chrome.runtime.sendMessage({ action: msg, data: { message: "Hello from content script!" } });
-    console.log("接受信息- response from background script:", response);
-}
 
-if(window.location.href.includes('ahrefs.com')){
-    send_action('listen_data');
-}
 
 // 消息监听站
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+
+    // 监听来自background.js  的消息
     if (message.action === "抓包助手") {
         console.log("抓包助手>后台脚本> -->", message.json.json);     
+    }
+    // 监听来自popup页面的消息
+    if (message.action == "on" || message.action == "off") {
+        show_or_hide_yuananniu();
     }
 
    
 });
 
-// 监听popup页面的消息
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    if (message.action == "on" || message.action == "off") {
-        show_or_hide_yuananniu();
-    }
 
-});
 
-//初始化
+
+//圆按钮，隐藏或者显示
 show_or_hide_yuananniu();
 function show_or_hide_yuananniu(){
     chrome.storage.local.get('yuananniu_show', function(result) {

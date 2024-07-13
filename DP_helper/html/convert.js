@@ -15,7 +15,7 @@ if (elem) { \
     } \
     return JSON.stringify(attributes, null, 2); \
 } else { \
-    return "No element selected "; \
+    return "No element selected"; \
 } \
 })()';
 
@@ -26,6 +26,7 @@ chrome.devtools.panels.elements.onSelectionChanged.addListener(() => {
     chrome.devtools.inspectedWindow.eval(
         extract_code, // $0 refers to the currently selected element in the Elements panel
         (result, isException) => {
+            if(result=="No element selected") return;
             if (isException) {
                 console.error('Error:', isException);
             } else {

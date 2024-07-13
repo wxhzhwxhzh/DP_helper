@@ -1,4 +1,4 @@
-// 永久储存对象
+// 永久储存对象 初始化
 
 
 
@@ -15,9 +15,10 @@ chrome.runtime.onInstalled.addListener(function(details) {
     }
 });
 
-// 在 background.js 中接收来自 popup 页面的消息
-// 在 background.js 中接收来自 popup 页面的消息
+
+// 合并两个消息监听器，提高代码整洁度和可读性
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    // 接受popup.js发送的消息，读取本地储存对象，并返回消息给popup.js
     if (message.from === "popup_page") {
         (async () => {
             let aa = await chrome.storage.local.get('yuananniu_show');
@@ -25,29 +26,35 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
         })();
         // 返回 true 表示异步操作，sendResponse 将在异步操作完成后调用
         return true;
+    } 
+
+    //接受content.js发送的消息,更新右键菜单的二级菜单名
+    if (message.youdao_text) {        
+        chrome.contextMenus.update("youdao", { title: `用有道翻译 "${message.youdao_text}"` });
     }
+    
 });
 
 
-// 在 background 页面接收来自 DevTools 的消息
-chrome.runtime.onConnect.addListener(function(port) {
+
+
+// 与DevTools建立长连接，接收来自 DevTools 的消息，并转发给 content.js
+chrome.runtime.onConnect.addListener(function (port) {
     if (port.name === "devtools-page") {
         // Event listener for messages from the devtools page
-        port.onMessage.addListener(function(message) {
+        port.onMessage.addListener(function (message) {
             console.log("Message from 抓包助手:", message);
-            send_action_to_currentWindow(message);
+            // Forward the message to content.js
+            chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+                // tabs 是一个数组，包含当前窗口中的所有标签页对象
+                chrome.tabs.sendMessage(tabs[0].id, { action: "抓包助手", json: message });
+            });
         });
     }
 });
 
 
- // 从 background.js 向 content.js 发送消息
-function send_action_to_currentWindow(data){   
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        // tabs 是一个数组，包含当前窗口中的所有标签页对象
-        chrome.tabs.sendMessage(tabs[0].id, { action: "抓包助手",json:data });
-    });
-}
+
 
 
 // 检查是否已存在具有相同 ID 的菜单项,如果有就清空
@@ -239,16 +246,6 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
 
 
 // 监听函数
-
-// 监听来自 content.js Script 的消息
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    // 如果消息包含标题信息
-    if (message.youdao_text) {
-         // 更新右键菜单的二级菜单名
-         chrome.contextMenus.update("youdao", { title: `用有道翻译  "${message.youdao_text}" ` });
-      
-    }
-});
 
 // 工具库 函数
 
