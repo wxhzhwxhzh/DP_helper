@@ -783,7 +783,7 @@ var side_button_code = `
 
   
     <div id='yuananniu' class="yuananniu" title="开关">
-    <span id="logo_font">S</span>       
+    <span id="logo_font">🦜</span>       
 
 
         <div class="sao-dropdown-menu">
