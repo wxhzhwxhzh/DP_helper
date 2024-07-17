@@ -1,3 +1,5 @@
+
+
 function set_on() {
     chrome.storage.local.set({ show_div: '显示' }, function () {
         console.log('Data saved.');

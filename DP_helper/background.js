@@ -1,3 +1,9 @@
+//设置版本号
+chrome.action.setBadgeText({ text:'骚' });
+// chrome.action.setBadgeTextColor({ color: "red" });
+chrome.action.setBadgeBackgroundColor({ color: "red" });
+// chrome.action.setBadgeBackgroundColor({ ColorArray: [0, 255, 0, 0.5] });
+
 // 永久储存对象 初始化
 
 
