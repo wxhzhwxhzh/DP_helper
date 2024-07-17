@@ -29,6 +29,7 @@ function  persistent_storage(obj){
 class MainApp{
     constructor() {
         var self=this;
+        window.info="骚神定位插件";
 
         this.createNavbar();//调用函数创建导航栏  默认隐藏
         this.toggleDiv();
@@ -361,6 +362,13 @@ class MainApp{
         
             // 更新 span 元素的内容为新的文本内容
             spanElement.innerHTML = newContent;
+
+            //  把window.info 的内容发送到侧边栏
+            try {
+                chrome.runtime.sendMessage({ cebianlan: newContent });
+            }
+            catch (error) { console.log('window.info 的内容发送到侧边栏-错误捕捉', error) }
+
 
             
             
@@ -1127,6 +1135,7 @@ document.addEventListener('selectionchange', function() {
           // 更新右键菜单菜单名-有道翻译
         
           chrome.runtime.sendMessage({ youdao_text: selection.toString() });
+          
     }
 });
 
@@ -1163,6 +1172,9 @@ function show_or_hide_yuananniu(){
         
     });
 }
+
+
+
 
 
 

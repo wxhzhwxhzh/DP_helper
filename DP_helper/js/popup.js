@@ -47,9 +47,7 @@ function toggleSwitch_button() {
 function scan_finger_print(){
     window.open("https://ip77.net/", "_blank");
 }
-function open_video_website(){
-    window.open("https://space.bilibili.com/308704191/channel/collectiondetail?sid=1947582", "_blank");
-}
+
 function open_chaxun_website(){
     let info=document.getElementById('search_input').value;
     window.open("https://drissionpage.cn/search?q="+info, "_blank");
@@ -61,7 +59,6 @@ function open_chaxun_website(){
 
 
 document.getElementById('on1').addEventListener('click', scan_finger_print);
-document.getElementById('jiaocheng').addEventListener('click', open_video_website);
 document.getElementById('search').addEventListener('click', open_chaxun_website);
 
 
@@ -90,6 +87,24 @@ checkbox.addEventListener('change', function() {
             console.log('关闭超级按钮');
         }
     });
+   
+});
+
+// 获取到 checkbox 元素
+const cebianlan_anniu= document.getElementById('kaiguan3');
+
+
+// 添加监听事件
+cebianlan_anniu.addEventListener('change', function() {
+    // 查询当前活动标签页
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        // tabs 是一个数组，可能有多个标签页，我们通常只取第一个（当前活动标签页）
+        const activeTab = tabs[0];        
+        
+        chrome.sidePanel.open({ windowId: activeTab.windowId });
+        
+    });
+
    
 });
 

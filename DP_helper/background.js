@@ -196,11 +196,22 @@ function create_right_menu() {
 
 }
 
-// chrome.scripting.executeScript({
-//     target:tab.id,
-//     function:update_contextMenus,
-// });
-
+// 增加打开侧边栏的右键菜单
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.contextMenus.create({
+      id: 'openSidePanel',
+      title: '🍎骚神侧边栏',
+      contexts: ['all']
+    });
+  });
+  
+  chrome.contextMenus.onClicked.addListener((info, tab) => {
+    if (info.menuItemId === 'openSidePanel') {
+      // This will open the panel in all the pages on the current window.
+      chrome.sidePanel.open({ windowId: tab.windowId });
+    }
+  });
+// chrome.sidePanel.openPanelOnActionClick=true;
 
 // 根据菜单项ID调用不同的函数// 根据菜单项ID调用不同的函数
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
