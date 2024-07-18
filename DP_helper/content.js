@@ -797,6 +797,7 @@ var side_button_code = `
         <div class="sao-dropdown-menu">
             <div id="sao1" class="sao-dropdown-item">元素浮窗开关</div>
             <div id="sao3" class="sao-dropdown-item">信息浮窗开关</div>
+            <div id="sao_cebianlan" class="sao-dropdown-item">超级侧边栏</div>
             <div id="sao7" class="sao-dropdown-item">指纹检测</div>
             
             <div id="sao2" class="sao-dropdown-item">启动代码生成</div>            
@@ -861,6 +862,11 @@ var side_button_code = `
     $('#sao2').click(function() {       
 
         overlay.switch_show_hide();
+    });
+
+    $('#sao_cebianlan').click(function () {
+
+        chrome.runtime.sendMessage({ open_cebianlan: true });
     });
 
     $('#sao3').click(function() {

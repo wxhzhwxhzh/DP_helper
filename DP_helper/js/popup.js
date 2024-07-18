@@ -101,12 +101,10 @@ cebianlan_anniu.addEventListener('change', function() {
     // 查询当前活动标签页
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         // tabs 是一个数组，可能有多个标签页，我们通常只取第一个（当前活动标签页）
-        const activeTab = tabs[0];        
-        
+        const activeTab = tabs[0];      
         chrome.sidePanel.open({ windowId: activeTab.windowId });
         
     });
-
    
 });
 

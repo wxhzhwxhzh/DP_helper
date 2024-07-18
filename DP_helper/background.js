@@ -1,11 +1,12 @@
 //设置版本号
-chrome.action.setBadgeText({ text:'骚' });
+chrome.action.setBadgeText({ text:'8.4' });
 // chrome.action.setBadgeTextColor({ color: "red" });
-chrome.action.setBadgeBackgroundColor({ color: "red" });
-// chrome.action.setBadgeBackgroundColor({ ColorArray: [0, 255, 0, 0.5] });
+chrome.action.setBadgeBackgroundColor({ color: "green" });
+
+
+
 
 // 永久储存对象 初始化
-
 
 
 chrome.runtime.onInstalled.addListener(function(details) {
@@ -22,7 +23,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
 });
 
 
-// 合并两个消息监听器，提高代码整洁度和可读性
+// 综合监听来自其他脚本的消息
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     // 接受popup.js发送的消息，读取本地储存对象，并返回消息给popup.js
     if (message.from === "popup_page") {
@@ -37,6 +38,15 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     //接受content.js发送的消息,更新右键菜单的二级菜单名
     if (message.youdao_text) {        
         chrome.contextMenus.update("youdao", { title: `用有道翻译 "${message.youdao_text}"` });
+    }
+    // 来自content的消息
+    if (message.open_cebianlan) {
+        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+            // tabs 是一个数组，可能有多个标签页，我们通常只取第一个（当前活动标签页）
+            const activeTab = tabs[0];      
+            chrome.sidePanel.open({ windowId: activeTab.windowId });
+            
+        });
     }
     
 });
@@ -136,43 +146,7 @@ function create_right_menu() {
         parentId: "sub_setup"
 
     });
-    chrome.contextMenus.create({
-        id: "luzhi_shot",
-        title: "🔵截图",
-        contexts: ["all"],
-        parentId: "sub_setup"
 
-    });
-    // 创建第二级子菜单项1
-    chrome.contextMenus.create({
-        id: "sub_page",
-        title: "录制当前页面",
-        contexts: ["all"]
-    });
-    chrome.contextMenus.create({
-        id: "luzhi_title",
-        title: "🔵标题",
-        contexts: ["all"],
-        parentId: "sub_page"
-
-    });
-    chrome.contextMenus.create({
-        id: "luzhi_UA",
-        title: "🔵UA",
-        contexts: ["all"],
-        parentId: "sub_page"
-
-    });
-    chrome.contextMenus.create({
-        id: "luzhi_cookie",
-        title: "🔵cookie",
-        contexts: ["all"],
-        parentId: "sub_page"
-
-    });
-  
-
-   
 
     // 创建第二级子菜单项2
     chrome.contextMenus.create({
@@ -200,24 +174,27 @@ function create_right_menu() {
         parentId: "more"
     });
 
+    chrome.contextMenus.create({
+        id: 'openSidePanel',
+        title: '🍎骚神侧边栏',
+        contexts: ['all']
+      });
+  
+
 }
 
-// 增加打开侧边栏的右键菜单
-chrome.runtime.onInstalled.addListener(() => {
-    chrome.contextMenus.create({
-      id: 'openSidePanel',
-      title: '🍎骚神侧边栏',
-      contexts: ['all']
-    });
-  });
-  
-  chrome.contextMenus.onClicked.addListener((info, tab) => {
-    if (info.menuItemId === 'openSidePanel') {
-      // This will open the panel in all the pages on the current window.
-      chrome.sidePanel.open({ windowId: tab.windowId });
-    }
-  });
-// chrome.sidePanel.openPanelOnActionClick=true;
+
+
+// 监听右键菜单侧边栏操作  
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+if (info.menuItemId === 'openSidePanel') {
+    // This will open the panel in all the pages on the current window.    
+    chrome.sidePanel.open({ windowId: tab.windowId });    
+}
+
+});
+
+
 
 // 根据菜单项ID调用不同的函数// 根据菜单项ID调用不同的函数
 chrome.contextMenus.onClicked.addListener(function(info, tab) {

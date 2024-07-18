@@ -15,9 +15,9 @@
         "sidePanel"
     ],
     "icons": {
-        "128": "img/parrot3.png",
-        "48": "img/parrot3.png",
-        "19": "img/parrot3.png"
+        "128": "img/saoshen2.png",
+        "48": "img/saoshen2.png",
+        "19": "img/saoshen2.png"
     },
     "content_scripts": [
         {
@@ -61,5 +61,12 @@
     },
     "side_panel": {
         "default_path": "sidepanel.html"
-    }
+    },
+    
+      
+    "omnibox": { "keyword" : "sao" }
+   
+    
+
+
 }
