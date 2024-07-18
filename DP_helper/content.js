@@ -268,7 +268,8 @@ class MainApp{
         let self=this;
         document.addEventListener('mousemove', async function(event) {
             //提取信息
-            var hoveredElement = document.elementFromPoint(event.clientX, event.clientY);
+            var hoveredElement = document.elementFromPoint(event.clientX, event.clientY);    
+            
             
 
             // await self.sleep(1000);
@@ -1180,7 +1181,19 @@ function show_or_hide_yuananniu(){
 }
 
 
+//回应侧边栏的消息
 
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    console.log("Message received from sidebar:", message);
+  
+    // 根据收到的消息内容作出响应
+    if (message.need == "window" ) {
+      // 发送响应给侧边栏页面
+      sendResponse({ data: window.location});
+    }
+
+
+  });
 
 
 
