@@ -16,6 +16,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
         chrome.storage.local.set({ 'yuananniu_show': true }, function () {
             console.log('永久存储对象 yuananiu_show 已经初始化');            
         });
+        new_alert('骚神 DP_helper 插件安装成功！');
 
     } else {
         console.log('早已安装');
@@ -39,6 +40,11 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.youdao_text) {        
         chrome.contextMenus.update("youdao", { title: `用有道翻译 "${message.youdao_text}"` });
     }
+    //接受content.js发送的消息,更新桌面提示
+    if (message.new_alert) {        
+       new_alert(message.new_alert);
+    }
+
     // 来自content的消息
     if (message.open_cebianlan) {
         chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
@@ -331,4 +337,15 @@ function copy_init_code() {
 
 
 
+
+
+function new_alert(str){
+    chrome.notifications.create(null, {
+        type: 'image',
+        iconUrl: 'img/saoshen2.png',
+        title: '系统提示',
+        message: str,
+        imageUrl: 'img/Saossion.png'
+    });
+}
 

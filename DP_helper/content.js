@@ -468,9 +468,12 @@ class MainApp{
         let tishi2=window.anotherGlobalVar;
         this.copyToClipboard(tishi2);
         
-        alert('✔️已经复制该语法到剪贴板  \n'+tishi2);
+        // alert('✔️已经复制该语法到剪贴板  \n'+tishi2);        
+
+        chrome.runtime.sendMessage({new_alert:'✔️已经复制该语法到剪贴板  \n'+tishi2})
     
     }
+    
     extractInfoAndAlert_simple(){ 
     
         let tishi2=window.anotherGlobalVar_simple;
@@ -884,6 +887,7 @@ var side_button_code = `
         main_app.copyToClipboard(navigator.userAgent);
         alert('网页的UA已经复制到剪贴板 \n' + navigator.userAgent);
     });
+
     $('#sao_copy_url').click(function() {
         let url=window.location.href;
         main_app.copyToClipboard(url);

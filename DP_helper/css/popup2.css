@@ -1,0 +1,93 @@
+/* 基本样式重置 */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+/* 页面容器样式 */
+.container {
+    width: 300px;
+    margin: 20px auto;
+    background-color: #f0f0f0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Logo样式 */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 100px;
+    margin-right: 10px;
+}
+
+.logo h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+/* 分割线样式 */
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+/* 输入框样式 */
+#search_input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: calc(100% - 100px);
+    margin-right: 10px;
+}
+
+/* 查询按钮样式 */
+#search {
+    padding: 8px 15px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#search:hover {
+    background-color: #0056b3;
+}
+
+/* 链接样式 */
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 页面底部文字样式 */
+p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 新标签打开链接样式 */
+#myLink {
+    font-size: 14px;
+    color: #007bff;
+    display: block;
+    margin-top: 10px;
+}
+
+#myLink:hover {
+    text-decoration: underline;
+}
