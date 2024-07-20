@@ -50,8 +50,11 @@ input:checked + .slider:before {
     display: flex;
     justify-content: space-between;
     margin-right: 30%;
+    padding-top: 5px;
 }
 
 .span_kaiguan {
-    font-size:large;
+    /* font-weight:bold; */
+    font-size: large;
+    color: #007bff;
 }

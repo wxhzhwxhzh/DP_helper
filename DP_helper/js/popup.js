@@ -60,7 +60,7 @@ function open_chaxun_website(){
 
 
 
-document.getElementById('on1').addEventListener('click', scan_finger_print);
+
 document.getElementById('search').addEventListener('click', open_chaxun_website);
 
 
