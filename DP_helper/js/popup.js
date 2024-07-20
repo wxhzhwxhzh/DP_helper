@@ -63,7 +63,11 @@ function open_chaxun_website(){
 
 document.getElementById('search').addEventListener('click', open_chaxun_website);
 
-
+document.getElementById('search_input').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+       open_chaxun_website();
+    }
+});
 
 
 
