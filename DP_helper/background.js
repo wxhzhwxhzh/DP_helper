@@ -1,5 +1,5 @@
 //设置版本号
-chrome.action.setBadgeText({ text:'8.4' });
+chrome.action.setBadgeText({ text:'8.5' });
 // chrome.action.setBadgeTextColor({ color: "red" });
 chrome.action.setBadgeBackgroundColor({ color: "green" });
 

@@ -145,6 +145,8 @@ function updateSelectedCheckboxes() {
       }
   });
   document.getElementById('xuanze_info').innerText=xuanze_info;
+  if(xuanze_info)  document.getElementById('css_content').innerText=parseSpecialSyntax(xuanze_info);
+  
 }
 
 // 获取 #test 元素
@@ -159,6 +161,7 @@ if(testDiv){
     }
   });
 }
+
 var copyBTN=document.getElementById('copy');
 // 添加复制事件监听器
 document.getElementById('copy').addEventListener('click', () => {
@@ -186,3 +189,64 @@ document.getElementById('copy').addEventListener('click', () => {
     copyBTN.innerText='复制下面语法';
   }, 1000);
 });
+
+var copyBTN_css=document.getElementById('copy_css');
+// 添加复制事件监听器
+copyBTN_css.addEventListener('click', () => {
+  // 创建新的 textarea 元素，并设置其值为要复制的文本内容
+  const textarea = document.createElement('textarea');
+  textarea.value = document.getElementById('css_content').innerText;
+
+  // 将 textarea 添加到文档中
+  document.body.appendChild(textarea);
+
+  // 选中 textarea 中的文本
+  textarea.select();
+  textarea.setSelectionRange(0, 99999); // 兼容性处理
+
+  // 尝试执行复制操作
+  document.execCommand('copy');
+
+  // 移除 textarea 元素
+  document.body.removeChild(textarea);
+
+  // 可以根据需要在控制台打印成功信息
+  console.log('已复制到剪贴板');
+  copyBTN_css.innerText='复制成功';
+  setTimeout(() => {
+    copyBTN_css.innerText='复制下面语法';
+  }, 1000);
+});
+
+
+
+function parseSpecialSyntax(specialSyntax) {
+    // 将特殊语法按 @@ 分割成数组
+    const parts = specialSyntax.split('@@').filter(part => part.trim() !== '');
+
+    // 初始化一个空的 CSS 选择器
+    let cssSelector = '';
+
+    // 使用 for 循环遍历每个属性部分
+    for (let i = 0; i < parts.length; i++) {
+        let part = parts[i];
+        if (part.includes('t:')) {
+            cssSelector +=  part.split(':')[1];
+            continue;
+        } 
+        if (part.includes('text()')) {            
+            continue;
+        } 
+        // 按 = 分割键和值
+        let [key, value] = part.split('=');
+
+        if (key === 'class') {
+            let classes = value.split(' ').map(className => `.${className.trim()}`).join('');
+            cssSelector += classes;
+        } else {
+            cssSelector += `[${key}=${value}]`;
+        }
+    }
+
+    return cssSelector;
+}

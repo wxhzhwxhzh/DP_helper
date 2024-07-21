@@ -42,27 +42,32 @@ hr {
 }
 
 /* 输入框样式 */
-#search_input {
+.search_input {
     padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    font-size: 14px;
+    /* border: 1px solid #ccc; */
+    border-radius: 4px 0px 0px 4px;
     width: calc(100% - 100px);
-    margin-right: 10px;
+    margin: 0px;
+    border: none;
 }
 
 /* 查询按钮样式 */
-#search {
-    padding: 8px 15px;
-    font-size: 16px;
+.search {
+    padding: 7px 15px;
+    font-size: 14px;
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 3px;
+    /* border-radius: 3px; */
     cursor: pointer;
+    margin: 0px;
+    border-radius: 0px 4px 4px 0px;
 }
 
-#search:hover {
+
+
+.search:hover {
     background-color: #0056b3;
 }
 
@@ -92,4 +97,12 @@ p {
 
 #myLink:hover {
     text-decoration: underline;
+}
+
+.no_border_div {
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    display: flex; /* 将容器设置为弹性盒子 */
+    align-items: center; /* 垂直居中对齐 */
 }

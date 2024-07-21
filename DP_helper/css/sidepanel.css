@@ -11,6 +11,7 @@ body {
     background-color: #f2f2f2;
     margin: 0;
     padding: 0;
+    font-family: 'jetbrains mono','Consolas';
 }
 
 header {
@@ -55,6 +56,8 @@ button:hover {
     margin-top: 10px;
     border-radius: 5px;
     margin: 10px;
+    word-wrap:break-word;
+    
 }
 
 
