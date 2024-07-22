@@ -9,7 +9,7 @@ if (elem) { \
     attributeNames.forEach(function(attr) { \
         attributes[attr] = elem.getAttribute(attr); \
     }); \
-    var innerText = elem.innerText.trim(); \
+    var innerText = elem.innerText; \
     if (innerText !== ""  && innerText.length <20) { \
         attributes["innerText"] = innerText;  \
     } \
