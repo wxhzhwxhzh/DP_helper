@@ -276,9 +276,9 @@ function change_meshi() {
 
     // 定义点击按钮时触发的函数
     function changeMode() {
-        let temp_content=[window.DP,`page('${window.DP}')`,`page('${window.DP}').click()`,`page('${window.DP}').input()`,`变量名=page('${window.DP}')`]
+        let temp_content=[window.DP,`page('${window.DP}')`,`page('${window.DP}').click()`,`page('${window.DP}').input()`,`page('${window.DP}').text`,`变量名=page('${window.DP}')`]
         // 切换到下一个模式
-        currentMode = (currentMode + 1) % 5; // 取余操作实现循环
+        currentMode = (currentMode + 1) % 6; // 取余操作实现循环
         modeButton.textContent = "智能补全模式" + currentMode;
         DP_content.innerText=temp_content[currentMode];
 
