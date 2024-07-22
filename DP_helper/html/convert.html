@@ -50,15 +50,17 @@
 
         button {
             padding: 6px 6px;
-            background-color: #58a4f0;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
+            /* background-color: #58a4f010;           */
+            
             cursor: pointer;
+            border: 2px solid #414040; /* 设置边框为2像素宽的实线，颜色为黑色 */
+            border-radius: 4px; /* 设置边框的圆角半径为8像素 */
+            background-color: transparent; /* 设置背景为透明 */
         }
 
-        button:hover {
-            background-color: #0056b3;
+        button:hover {            
+            border: 2px solid rebeccapurple;
+            background-color: yellowgreen;            
         }
 
         hr {
@@ -75,8 +77,8 @@
 </head>
 
 <body>
-   
-    <h2 id="zidingyi">DrissionPage语法 <button id="copy">复制下面语法</button></h2>
+   <h4 style="font-style: italic;color: gray;"> 元素面板中任意元素被选中时，自动生成语法</h4>
+    <h2 id="zidingyi">DrissionPage语法 <button id="copy">复制下面语法</button> <button id="smart_fill">智能补全模式0</button></h2>
     <div id="xuanze_info">元素面板中任意元素被选中时，自动解析语法</div>
 
     <div id="xuanze" style="color: rgb(28, 19, 163);">自定义选择属性区</div>

@@ -18,31 +18,42 @@ if (elem) { \
     return "No element selected"; \
 } \
 })()';
-
+// 第一次加载的时候执行一次
+main_job();
 
 // 在插件的 devtools 页面中监听元素选择事件
 chrome.devtools.panels.elements.onSelectionChanged.addListener(() => {
+    main_job();    
+  });
+
+
+//   主函数
+function main_job() {
     // 获取当前选中的元素
     chrome.devtools.inspectedWindow.eval(
         extract_code, // $0 refers to the currently selected element in the Elements panel
         (result, isException) => {
-            if(result=="No element selected") return;
+            if (result == "No element selected") return;
             if (isException) {
                 console.error('Error:', isException);
             } else {
                 console.log('返回结果:', result);
-                window.info=result;
-                document.getElementById('content').innerText=result;
-                convertInnerText();                
+                window.info = result;
+                document.getElementById('content').innerText = result;
+                //  把json版转换成 完整版
+                convertInnerText();
+                //创建自定义选择复选框                
                 createCheckboxes(JSON.parse(result));
                 updateSelectedCheckboxes();
             }
         }
     );
-  });
-  
-  
+}
 
+
+  
+  
+//  把json版转换成 完整版
   function convertInnerText() {
     var json_data = document.getElementById('content').innerText;
     if (json_data.includes('No')) return;
@@ -145,6 +156,7 @@ function updateSelectedCheckboxes() {
       }
   });
   document.getElementById('xuanze_info').innerText=xuanze_info;
+  window.DP=xuanze_info;
   if(xuanze_info)  document.getElementById('css_content').innerText=parseSpecialSyntax(xuanze_info);
   
 }
@@ -162,12 +174,17 @@ if(testDiv){
   });
 }
 
-var copyBTN=document.getElementById('copy');
-// 添加复制事件监听器
-document.getElementById('copy').addEventListener('click', () => {
+
+// -------------------------复制按钮 监听部分
+// 获取按钮元素
+var copyBTN = document.getElementById('copy');
+var copyBTN_css = document.getElementById('copy_css');
+
+// 通用的复制函数
+function copyToClipboard(elementId, button, successMessage, defaultMessage) {
   // 创建新的 textarea 元素，并设置其值为要复制的文本内容
   const textarea = document.createElement('textarea');
-  textarea.value = document.getElementById('xuanze_info').innerText;
+  textarea.value = document.getElementById(elementId).innerText;
 
   // 将 textarea 添加到文档中
   document.body.appendChild(textarea);
@@ -182,44 +199,26 @@ document.getElementById('copy').addEventListener('click', () => {
   // 移除 textarea 元素
   document.body.removeChild(textarea);
 
-  // 可以根据需要在控制台打印成功信息
+  // 在控制台打印成功信息
   console.log('已复制到剪贴板');
-  copyBTN.innerText='复制成功';
+  button.innerText = successMessage;
   setTimeout(() => {
-    copyBTN.innerText='复制下面语法';
+    button.innerText = defaultMessage;
   }, 1000);
+}
+
+// 添加复制事件监听器
+copyBTN.addEventListener('click', () => {
+  copyToClipboard('xuanze_info', copyBTN, '复制成功', '复制下面语法');
 });
 
-var copyBTN_css=document.getElementById('copy_css');
-// 添加复制事件监听器
 copyBTN_css.addEventListener('click', () => {
-  // 创建新的 textarea 元素，并设置其值为要复制的文本内容
-  const textarea = document.createElement('textarea');
-  textarea.value = document.getElementById('css_content').innerText;
-
-  // 将 textarea 添加到文档中
-  document.body.appendChild(textarea);
-
-  // 选中 textarea 中的文本
-  textarea.select();
-  textarea.setSelectionRange(0, 99999); // 兼容性处理
-
-  // 尝试执行复制操作
-  document.execCommand('copy');
-
-  // 移除 textarea 元素
-  document.body.removeChild(textarea);
-
-  // 可以根据需要在控制台打印成功信息
-  console.log('已复制到剪贴板');
-  copyBTN_css.innerText='复制成功';
-  setTimeout(() => {
-    copyBTN_css.innerText='复制下面语法';
-  }, 1000);
+  copyToClipboard('css_content', copyBTN_css, '复制成功', '复制下面语法');
 });
 
+// ------------------------------
 
-
+// 把官方语法转换成 css 语法
 function parseSpecialSyntax(specialSyntax) {
     // 将特殊语法按 @@ 分割成数组
     const parts = specialSyntax.split('@@').filter(part => part.trim() !== '');
@@ -250,3 +249,44 @@ function parseSpecialSyntax(specialSyntax) {
 
     return cssSelector;
 }
+
+
+
+// 监听智能补全 按钮
+
+var smart_fill_BTN=document.getElementById('smart_fill');
+const meshi=change_meshi();
+var DP_content=document.getElementById('xuanze_info');
+
+smart_fill_BTN.addEventListener('click',()=>{
+
+    // DP_content.innerText=`page.ele('${DP_content.innerText}').click()`
+    meshi.changeMode();
+
+});
+
+//闭包函数
+function change_meshi() {
+    // 定义一个变量来存储当前的模式
+    let currentMode = 0;
+    
+
+    // 获取按钮元素
+    const modeButton = document.getElementById('smart_fill');
+
+    // 定义点击按钮时触发的函数
+    function changeMode() {
+        let temp_content=[window.DP,`page('${window.DP}')`,`page('${window.DP}').click()`,`page('${window.DP}').input()`,`变量名=page('${window.DP}')`]
+        // 切换到下一个模式
+        currentMode = (currentMode + 1) % 5; // 取余操作实现循环
+        modeButton.textContent = "智能补全模式" + currentMode;
+        DP_content.innerText=temp_content[currentMode];
+
+    }
+
+    // 返回一个对象，包含可以调用的方法
+    return {
+        changeMode: changeMode
+    };
+}
+
