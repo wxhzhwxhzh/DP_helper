@@ -120,3 +120,13 @@ chrome.runtime.sendMessage({ from: "popup_page" }, function(response) {
     checkbox.checked=response.yuananniu_show.yuananniu_show;
 });
 
+
+
+// 获取 input 元素
+const searchInput = document.getElementById('search_input');
+
+// 添加 mouseover 事件监听器
+searchInput.addEventListener('mouseover', function() {
+    // 当鼠标悬浮时，设置输入框的焦点
+    this.focus();
+});

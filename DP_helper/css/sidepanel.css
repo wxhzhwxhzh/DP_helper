@@ -2,16 +2,17 @@
 body, h1, h2, p {
     margin: 0;
     padding: 0;
+    
 }
 
 /* Basic styling */
 body {
-    font-family: Arial, sans-serif;
+    
     line-height: 1.6;
     background-color: #f2f2f2;
     margin: 0;
     padding: 0;
-    font-family: 'jetbrains mono','Consolas';
+    font-family:'jetbrains mono','Consolas' ,'宋体';
 }
 
 header {
