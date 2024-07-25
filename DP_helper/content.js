@@ -428,30 +428,39 @@ class MainApp{
       
     
 
-        
-    // 获取元素的XPath
+
+
     getElementXPath(element) {
-        if (element && element.id) {
-            return 'id("' + element.id + '")';
-        } else {
-            let paths = [];
-            for (; element && element.nodeType == Node.ELEMENT_NODE; element = element.parentNode) {
-                let index = 0;
-                let siblings = element.parentNode.childNodes;
-                for (let i = 0; i < siblings.length; i++) {
-                    let sibling = siblings[i];
-                    if (sibling == element) {
-                        index++;
-                        break;
-                    }
-                }
-                let tagName = element.nodeName.toLowerCase();
-                let pathIndex = (index ? "[" + (index+1) + "]" : "");
-                paths.splice(0, 0, tagName + pathIndex);
-            }
-            return paths.length ? "/" + paths.join("/") : null;
+        // 如果元素有 ID，直接返回基于 ID 的 XPath
+        if (element.id !== "") {
+            return `//*[@id="${element.id}"]`;
         }
+        
+        // 辅助函数：获取元素在其兄弟元素中的索引
+        function getElementIndex(node) {
+            let index = 1; // 索引从 1 开始，因为 XPath 索引从 1 开始
+            while (node.previousElementSibling) {
+                node = node.previousElementSibling; // 计数前面的兄弟元素
+                index++;
+            }
+            return index; // 返回元素的索引
+        }
+        
+        // 辅助函数：递归构建 XPath 字符串
+        function buildXPath(node) {
+            // 如果节点是 body，返回 "/html/body"
+            if (node === document.body) {
+                return "/html/body";
+            }
+    
+            let index = getElementIndex(node); // 获取元素在同级中的索引
+            // 递归构建 XPath 字符串
+            return `${buildXPath(node.parentNode)}/${node.tagName.toLowerCase()}[${index}]`;
+        }
+    
+        return buildXPath(element); // 调用辅助函数构建 XPath
     }
+
     
     // 复制元素的XPath
     copyElementXPath() {
