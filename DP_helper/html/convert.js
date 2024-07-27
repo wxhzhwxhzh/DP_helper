@@ -170,6 +170,7 @@ if(testDiv){
   testDiv.addEventListener('change', (event) => {
     if (event.target.type === 'checkbox') {
         updateSelectedCheckboxes();
+        document.getElementById('option').click();
     }
   });
 }
@@ -250,43 +251,4 @@ function parseSpecialSyntax(specialSyntax) {
     return cssSelector;
 }
 
-
-
-// 监听智能补全 按钮
-
-var smart_fill_BTN=document.getElementById('smart_fill');
-const meshi=change_meshi();
-var DP_content=document.getElementById('xuanze_info');
-
-smart_fill_BTN.addEventListener('click',()=>{
-
-    // DP_content.innerText=`page.ele('${DP_content.innerText}').click()`
-    meshi.changeMode();
-
-});
-
-//闭包函数
-function change_meshi() {
-    // 定义一个变量来存储当前的模式
-    let currentMode = 0;
-    
-
-    // 获取按钮元素
-    const modeButton = document.getElementById('smart_fill');
-
-    // 定义点击按钮时触发的函数
-    function changeMode() {
-        let temp_content=[window.DP,`page('${window.DP}')`,`page('${window.DP}').click()`,`page('${window.DP}').input()`,`page('${window.DP}').text`,`变量名=page('${window.DP}')`]
-        // 切换到下一个模式
-        currentMode = (currentMode + 1) % 6; // 取余操作实现循环
-        modeButton.textContent = "智能补全模式" + currentMode;
-        DP_content.innerText=temp_content[currentMode];
-
-    }
-
-    // 返回一个对象，包含可以调用的方法
-    return {
-        changeMode: changeMode
-    };
-}
 

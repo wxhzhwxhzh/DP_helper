@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "骚神库DP助手",
-    "version": "8.5.3",
+    "version": "8.6",
     "permissions": [
         "contextMenus",
         "tabs",
