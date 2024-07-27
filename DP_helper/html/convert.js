@@ -129,7 +129,7 @@ function createCheckboxes(jsonData) {
           container.appendChild(label);
 
           // 添加一个换行符
-          container.appendChild(document.createElement('br'));
+        //   container.appendChild(document.createElement('br'));
       }
   }
 }
