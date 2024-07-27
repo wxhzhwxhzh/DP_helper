@@ -477,9 +477,9 @@ class MainApp{
         let tishi2=window.anotherGlobalVar;
         this.copyToClipboard(tishi2);
         
-        // alert('✔️已经复制该语法到剪贴板  \n'+tishi2);        
+        alert('✔️已经复制该语法到剪贴板  \n'+tishi2);        
 
-        chrome.runtime.sendMessage({new_alert:'✔️已经复制该语法到剪贴板  \n'+tishi2})
+        
     
     }
     

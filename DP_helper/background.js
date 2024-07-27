@@ -40,10 +40,8 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.youdao_text) {        
         chrome.contextMenus.update("youdao", { title: `用有道翻译 "${message.youdao_text}"` });
     }
-    //接受content.js发送的消息,更新桌面提示
-    if (message.new_alert) {        
-       new_alert(message.new_alert);
-    }
+    
+
 
     // 来自content的消息
     if (message.open_cebianlan) {
