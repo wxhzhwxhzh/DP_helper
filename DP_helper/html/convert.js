@@ -1,23 +1,58 @@
 
 
 
-var extract_code = '(function() { \
+var extract_code_ele = '(function() { \
 var elem = $0; \
-if (elem) { \
-    var attributes = {"tagname":elem.tagName.toLowerCase()}; \
-    var attributeNames = elem.getAttributeNames(); \
-    attributeNames.forEach(function(attr) { \
-        attributes[attr] = elem.getAttribute(attr); \
-    }); \
-    var innerText = elem.innerText; \
-    if (innerText !== ""  && innerText.length <20) { \
-        attributes["innerText"] = innerText;  \
-    } \
-    return JSON.stringify(attributes, null, 2); \
-} else { \
-    return "No element selected"; \
+if (elem) {return elem.outerHTML \
 } \
 })()';
+var extract_code_ele_father = '(function() { \
+var elem = $0; \
+if (elem) {return elem.parentNode.outerHTML \
+} \
+})()';
+
+
+
+function outerHTMLToJSON(outerHTML) {
+    // 创建一个临时 div 元素
+    var tempDiv = document.createElement('div');
+    
+    // 将传入的 outerHTML 赋值给临时 div 的 innerHTML，这样浏览器会自动解析它
+    tempDiv.innerHTML = outerHTML;
+    
+    // 从临时 div 中获取第一个子元素（即刚刚解析的那个元素）
+    var element = tempDiv.firstChild;
+    
+    if (element) {
+        // 初始化一个空对象，用于存储元素信息
+        var attributes = { "tagname": element.tagName.toLowerCase() };
+        
+        // 获取元素所有的属性名
+        var attributeNames = Array.from(element.attributes).map(attr => attr.name);
+        
+        // 遍历属性名数组，将每个属性名及其对应的值添加到 attributes 对象中
+        attributeNames.forEach(function(attr) {
+            attributes[attr] = element.getAttribute(attr);
+        });
+        
+        // 获取元素的innerText，并去除两端的空白字符
+        var innerText = element.innerText;
+        
+        // 如果innerText不为空且长度小于20个字符，则将其加入到 attributes 对象中
+        if (innerText !== "" && innerText.length < 20) {
+            attributes["innerText"] = innerText;
+        }
+        
+        // 使用JSON.stringify将attributes对象转换为格式化的JSON字符串
+        return   JSON.stringify(attributes, null, 2);
+    } else {
+        // 如果未能从outerHTML中解析出有效的元素，则返回相应的提示信息
+        return "Invalid outerHTML provided";
+    }
+}
+
+
 // 第一次加载的时候执行一次
 main_job();
 
@@ -26,19 +61,23 @@ chrome.devtools.panels.elements.onSelectionChanged.addListener(() => {
     main_job();    
   });
 
+  document.body.outerHTML
+
 
 //   主函数
 function main_job() {
     // 获取当前选中的元素
     chrome.devtools.inspectedWindow.eval(
-        extract_code, // $0 refers to the currently selected element in the Elements panel
+        extract_code_ele, // $0 refers to the currently selected element in the Elements panel
         (result, isException) => {
+            result=outerHTMLToJSON(result);
             if (result == "No element selected") return;
             if (isException) {
                 console.error('Error:', isException);
             } else {
-                console.log('返回结果:', result);
+                console.log('返回--结果:', result);
                 window.info = result;
+                window.info_json = JSON.parse(result);
                 document.getElementById('content').innerText = result;
                 //  把json版转换成 完整版
                 convertInnerText();
@@ -48,6 +87,23 @@ function main_job() {
             }
         }
     );
+    chrome.devtools.inspectedWindow.eval(
+        extract_code_ele_father, 
+        (result, isException) => {
+            result=outerHTMLToJSON(result);            
+            if (isException) {
+                console.error('Error:', isException);
+            } else {
+                console.log('返回元素结果:', result);
+                window.info_father = result;
+                window.info_father_json = JSON.parse(result);
+               
+            }
+        }
+    );
+
+
+
 }
 
 

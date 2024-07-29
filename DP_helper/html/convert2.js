@@ -34,7 +34,7 @@ function createRadioButtons(options) {
 }
 
 
-var optionsArray = ['不修饰', 'page', 'click()', 'input()', 'text'];
+var optionsArray = ['不修饰', 'page', 'click()', 'input()', 'text','相对定位'];
 
 // 调用函数，传入数组参数
 createRadioButtons(optionsArray);
@@ -75,9 +75,28 @@ function update_smart_fill(ele) {
             case 'text':
                 temp = temp_content[4];
                 break;
+            case '相对定位':
+                temp =`page('${toDP_yufa(window.info_father)}').after('t:${window.info_json.tagname}')` ;
+                break;
             default:
                 temp = 'erro'
         }
         DP_content.innerText = temp;
     }
+}
+
+function toDP_yufa(json_string){
+    let temp_json=JSON.parse(json_string);
+    let temp_string='t:'+temp_json.tagname;
+    if(temp_json.id){
+        temp_string+='@@id='+temp_json.id;
+        return temp_string;
+    };
+    if(temp_string.innerText){
+        temp_string+='@@text()='+temp_json.innerText;
+        return temp_string;
+    }
+    return temp_string;
+
+
 }
