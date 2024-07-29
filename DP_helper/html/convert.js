@@ -24,7 +24,7 @@ function outerHTMLToJSON(outerHTML) {
     // 从临时 div 中获取第一个子元素（即刚刚解析的那个元素）
     var element = tempDiv.firstChild;
     
-    if (element) {
+    if (element && element !== null && element !== undefined) {
         // 初始化一个空对象，用于存储元素信息
         var attributes = { "tagname": element.tagName.toLowerCase() };
         
