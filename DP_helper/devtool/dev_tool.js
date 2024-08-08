@@ -1,8 +1,13 @@
 chrome.devtools.panels.elements.createSidebarPane('💖️骚神语法转换', function (sidebar) {
     // sidebar initialization code here
     sidebar.setPage('html/convert.html')
+    
     // sidebar.onShown.addListener(handleShown)
     // sidebar.onHidden.addListener(handleHidden)
+  });
+
+chrome.devtools.panels.elements.createSidebarPane('🔴骚神逆向助手', function (sidebar) {
+    sidebar.setPage('html/reverse.html')
   });
 
   

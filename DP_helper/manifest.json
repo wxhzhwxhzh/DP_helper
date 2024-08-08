@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "骚神库DP助手",
-    "version": "8.6",
+    "version": "8.7",
     "permissions": [
         "contextMenus",
         "tabs",
@@ -35,6 +35,15 @@
                 "css/jquery-ui.css"
             ],
             "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content-before.js"
+            ],
+            "run_at": "document_start"
         }
     ],
     "host_permissions": [
@@ -62,11 +71,7 @@
     "side_panel": {
         "default_path": "sidepanel.html"
     },
-    
-      
-    "omnibox": { "keyword" : "sao" }
-   
-    
-
-
+    "omnibox": {
+        "keyword": "sao"
+    }
 }
