@@ -11,6 +11,7 @@ chrome.action.setBadgeBackgroundColor({ color: "green" });
 
 chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason === 'install' || details.reason === 'update' ) {
+        // hook_response_json();
         console.log('首次安装');
         
         chrome.storage.local.set({ 'yuananniu_show': true }, function () {
@@ -21,7 +22,19 @@ chrome.runtime.onInstalled.addListener(function(details) {
     } else {
         console.log('早已安装');
     }
+    
+   
+
 });
+
+
+
+
+
+
+
+
+
 
 
 // 综合监听来自其他脚本的消息
