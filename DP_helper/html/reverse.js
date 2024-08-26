@@ -12,6 +12,18 @@
 // })();
 
 
+var reverse_debugger_code = '(function () {\
+    let constructorCache = Function.prototype.constructor;\
+    Function.prototype.constructor = function (string) {\
+        if (string === "debugger") {\
+            console.log("Hook constructor debugger!");\
+            return function () {};\
+        }\
+        return constructorCache(string);\
+    };\
+})();\
+';
+
 var reverse_console_code = '(function () {\
     let consoleCache = console.log;\
     console.log = function (msg) {\
@@ -35,6 +47,7 @@ var json_data =
     "console.log": "console.log",
     "fetch": "fetch",
     "cookie": "cookie",
+    "debugger": "debugger",
     "Function": "Function",
     "JSON.stringify": "JSON.stringify",
     "JSON.parse": "JSON.parse"
@@ -103,7 +116,7 @@ createRadioButtons(json_data);
 
 document.getElementById('option').addEventListener('click', (event) => {
     let selectedRadio = document.querySelector('input[name="options"]:checked');
-    console.log(selectedRadio);
+    console.log("被选中的-",selectedRadio);
     let rizhi=document.getElementById('rizhi');
     switch (selectedRadio.value) {
         case 'console.log':
@@ -121,6 +134,11 @@ document.getElementById('option').addEventListener('click', (event) => {
             // alert('Selected fetch');
             appendToDiv(' fetch 已经成功hook');
             start_hook(reverse_fetch_code);
+            break;
+        case 'debugger':
+            
+            appendToDiv(' debugger 已经成功hook');
+            start_hook(reverse_debugger_code);
             break;
         default:
             console.log('No option selected');
