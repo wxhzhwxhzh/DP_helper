@@ -25,6 +25,13 @@ chrome.devtools.panels.elements.createSidebarPane('🔴骚神逆向助手', func
     console.log('user switched to📗异步助手');
   });
   
+  chrome.devtools.panels.create('📙爬虫工具箱', 'icon.png', 'html/tools_doc.html', () => {
+    console.log('user switched to📙实战代码');
+  });  
+  chrome.devtools.panels.create('📙K哥工具', 'icon.png', 'html/K_ge.html', () => {
+    console.log('user switched to📙实战代码');
+  });  
+
   chrome.devtools.panels.create('📙实战代码', 'icon.png', 'html/teach_doc.html', () => {
     console.log('user switched to📙实战代码');
   });  
