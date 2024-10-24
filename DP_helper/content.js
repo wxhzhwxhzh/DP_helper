@@ -1,6 +1,6 @@
 // 骚神库 DP_helper
 var logo_t='text-shadow:0.3px -1px 0 rgb(255 255 255 / 100%),1.4px -2px 0 rgb(255 255 255 / 96%),2.0999999999999996px -3px 0 rgb(255 255 255 / 92%),2.8px -4px 0 rgb(255 255 255 / 88%),-1px 1px 2px rgb(0 0 0 / 70%),-2px 2px 4px rgb(0 0 0 / 70%),-3px 3px 6px rgb(0 0 0 / 70%)'
-console.log("%c骚神插件 8.8 已加载", "color:gray;font-weight:bold;font-size:3em;padding:10px 30px;".concat(logo_t, ";").concat("background: linear-gradient(to right top,oklab(58.2% -0.04 -0.21),oklab(58.2% -0.376 -0.21));"));
+console.log("%c骚神插件 VIP版 已加载", "color:gray;font-weight:bold;font-size:3em;padding:10px 30px;".concat(logo_t, ";").concat("background: linear-gradient(to right top,oklab(58.2% -0.04 -0.21),oklab(58.2% -0.376 -0.21));"));
 
 
 
@@ -818,11 +818,11 @@ var side_button_code = `
             <div id="sao_cebianlan" class="sao-dropdown-item">超级侧边栏</div>
             <div id="sao7" class="sao-dropdown-item">指纹检测</div>
             
-            <div id="sao2" class="sao-dropdown-item">启动代码生成</div>            
-            <div id="sao9" class="sao-dropdown-item">官方文档</div>
+            <div id="sao2" class="sao-dropdown-item">代码生成</div>            
+            <div id="sao9" class="sao-dropdown-item">CURL助手</div>
             <div id="sao10" class="sao-dropdown-item">实战代码</div>
             
-            <div id="sao11" class="sao-dropdown-item">AI对话</div>
+            <div id="sao11" class="sao-dropdown-item">格式转换</div>
              
 
             
@@ -927,7 +927,7 @@ var side_button_code = `
     
     $('#sao9').click(function() {        
         // overlay2.switch_show_hide();
-        minOpen('https://drissionpage.cn/search?')
+        minOpen('https://curlconverter.com/')
     });
 
     $('#sao10').click(function() {
@@ -952,7 +952,7 @@ var side_button_code = `
     $('#sao11').click(function() {        
         // overlay4.switch_show_hide();
         // minOpen('https://free1.gptchinese.app/chat/new')
-        minOpen('https://kimi.moonshot.cn/');
+        minOpen('https://spidertools.cn/');
     });
     $('#sao_coffee').click(function() {        
        buyMeACoffee();
@@ -1212,6 +1212,74 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
 
   });
+
+
+
+// 特殊网站处理
+function updateLogoAndHideElements() {
+    // 检查当前 URL 是否包含 'spidertools.cn'
+    if (window.location.href.includes('spidertools.cn')) {
+        const topElement = document.querySelector('#top');
+        const logoImage = document.querySelector('.logo_img');
+        const logoTextElement = document.querySelector('.logo_text');
+        const appElement = document.querySelector('#app > div:nth-child(1)');
+        const bottomElement = document.querySelector('#bottom');
+
+        // 隐藏顶部元素并调整其样式
+        topElement.style.display = 'none';
+        topElement.style.height = '55px';
+        topElement.style.display = 'block';
+
+        // 更新 logo 图片和文本
+        if (logoImage) {
+            logoImage.src = 'https://wxhzhwxhzh.github.io/saossion_code_helper_online/img/saoshen.png';
+        }
+
+        if (logoTextElement) {
+            logoTextElement.innerText = '骚神万能格式转换';
+            logoTextElement.style.fontWeight = 'bold';
+        }
+
+        // 设置应用元素的 z-index 和位置,防止广告遮蔽
+        appElement.style.position = 'relative';
+        appElement.style.zIndex = 5000;
+
+        // 隐藏底部元素
+        if (bottomElement) {
+            bottomElement.style.display = 'none';
+        }
+
+        // 移除特定的列表项
+        const listItemsToRemove = ['知识宝库', '代码分享'];
+        listItemsToRemove.forEach(itemText => {
+            const listItem = Array.from(document.querySelectorAll('li')).find(el => el.innerText === itemText);
+            if (listItem) {
+                listItem.remove(); // 删除匹配的列表项
+            }
+        });
+    }
+}
+
+// 调用函数
+updateLogoAndHideElements();
+
+
+function updateLogoAndHideElements2() {
+    // 检查当前 URL 是否包含 'spidertools.cn'
+    if (window.location.href.includes('curlconverter.com')) {
+        const helpElement = document.querySelector('.container-md.pb-4');
+        if(helpElement){
+            helpElement.remove()
+        }   
+
+
+    }
+}
+
+// 调用函数
+updateLogoAndHideElements2();
+
+
 
 
 
