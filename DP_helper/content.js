@@ -1270,7 +1270,26 @@ function updateLogoAndHideElements2() {
         const helpElement = document.querySelector('.container-md.pb-4');
         if(helpElement){
             helpElement.remove()
-        }   
+        } 
+        let aaa=document.querySelector('body > div.container-md.py-2 > div > div');
+        aaa.innerText='';
+        const bbb = document.createElement('img');
+        bbb.src = 'https://wxhzhwxhzh.github.io/saossion_code_helper_online/img/saoshen.png';
+        bbb.style.height = '50px';
+
+        // 将图片添加到 aaa 中
+        aaa.appendChild(bbb);
+
+        // 创建一个新的文本节点并添加到 aaa 中
+        const textNode = document.createTextNode('骚神库 异步加载 代码转换 工具箱');
+        aaa.appendChild(textNode);
+
+        // 设置样式
+        aaa.style.fontSize = '40px';
+        aaa.style.fontWeight = 'bold';
+        aaa.style.color = 'brown';
+        // 移除github元素
+        document.querySelector('body > a').remove();
 
 
     }
