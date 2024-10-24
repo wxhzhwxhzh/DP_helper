@@ -822,7 +822,7 @@ var side_button_code = `
             <div id="sao9" class="sao-dropdown-item">CURL助手</div>
             <div id="sao10" class="sao-dropdown-item">实战代码</div>
             
-            <div id="sao11" class="sao-dropdown-item">格式转换</div>
+            <div id="sao11" class="sao-dropdown-item">万能格式转换</div>
              
 
             
@@ -1232,11 +1232,11 @@ function updateLogoAndHideElements() {
 
         // 更新 logo 图片和文本
         if (logoImage) {
-            logoImage.src = 'https://wxhzhwxhzh.github.io/saossion_code_helper_online/img/saoshen.png';
+            logoImage.src = 'http://drissionpage.cn/img/color_logo.png';
         }
 
         if (logoTextElement) {
-            logoTextElement.innerText = '骚神万能格式转换';
+            logoTextElement.innerText = '万能格式转换';
             logoTextElement.style.fontWeight = 'bold';
         }
 
